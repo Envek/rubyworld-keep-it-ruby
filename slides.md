@@ -271,51 +271,47 @@ layout: section
 
 # Technical Deep Dive
 
----
-layout: default
----
-
-# Problems Solved by imgproxy
-
-- ✅ Easy link crafting for image variants
-- 🔒 Link signature for security
-- 🛡️ DDoS prevention
-- 📦 CDN cache poisoning protection
-- 🚀 On-the-fly processing
-- 💰 Reduced infrastructure costs
+Why it matters for Ruby developers
 
 ---
 layout: two-cols
+layoutClass: gap-2
 ---
 
-# Plain Ruby vs imgproxy Gem
+### Plain Ruby implementation
 
-::left::
+It is easy to implement yourself (for one specific use case)
 
-### Without imgproxy gem
-
-```ruby
+```ruby {all}{class:'!children:text-xs'}
 require 'base64'
 require 'openssl'
 
-key = ['943b421c9eb07c830af81030552c86009268de4e532ba2ee2eab8247c6da0881'].pack('H*')
-salt = ['520f986b998545b4785e0defbc4f3c1203f22de2374a3d53cb7a7fe9fea309c5'].pack('H*')
+key = ['943b421c9eb07c83...'].pack('H*')
+salt = ['520f986b998545b4...'].pack('H*')
 
-url = "http://example.com/image.jpg"
-encoded_url = Base64.urlsafe_encode64(url).tr('=', '').scan(/.{1,16}/).join('/')
+def generate_url(url, width, height)
+  encoded_url = Base64.urlsafe_encode64(url).tr('=', '')
+  encoded_url = encoded_url.scan(/.{1,16}/).join('/')
 
-path = "/resize:fill:300:400/#{encoded_url}"
-hmac = OpenSSL.hmac(OpenSSL::Digest.new('sha256'), key, "#{salt}#{path}")
-signature = Base64.urlsafe_encode64(hmac).tr('=', '')
+  path = "/resize:fill:#}width}:#{height}/#{encoded_url}"
+  hmac = OpenSSL.hmac(
+    OpenSSL::Digest.new('sha256'), key, "#{salt}#{path}"
+  )
+  signature = Base64.urlsafe_encode64(hmac).tr('=', '')
 
-signed_url = "http://imgproxy.example.com/#{signature}#{path}"
+  "http://imgproxy.example.com/#{signature}#{path}"
+end
+
+url = generate_url("http://example.com/image.jpg", 300, 400)
 ```
 
 ::right::
 
 ### With imgproxy gem
 
-```ruby
+But always better to use a battle-tested library that will hide all gory details
+
+```ruby {all}{class:'!children:text-xs'}
 require 'imgproxy'
 
 imgproxy = Imgproxy.configure do |config|
@@ -332,58 +328,32 @@ url = imgproxy.generate_url(
 )
 ```
 
-<div class="mt-4">
-<QRCode value="https://github.com/imgproxy/imgproxy.rb" />
-<span class="text-xs">imgproxy.rb on GitHub</span>
-</div>
+<qr-code url="https://github.com/imgproxy/imgproxy.rb" class="w-36 absolute bottom-36px right-36px" />
 
 ---
 layout: default
 ---
 
-# Rails Integration: ActiveStorage + imgproxy
+## ActiveStorage + imgproxy
+
+What is even better: to use familiar API and don't change your codebase!
 
 ```ruby
-# config/initializers/imgproxy.rb
-Imgproxy.configure do |config|
-  config.endpoint = 'https://imgproxy.example.com'
-  config.key = ENV['IMGPROXY_KEY']
-  config.salt = ENV['IMGPROXY_SALT']
-end
+# development.rb
+config.active_storage.resolve_model_to_route = :rails_storage_proxy
 
-# app/models/user.rb
-class User < ApplicationRecord
-  has_one_attached :avatar
-  
-  def avatar_url(size: :medium)
-    return unless avatar.attached?
-    
-    case size
-    when :thumb
-      avatar.imgproxy_url(resize: "100x100")
-    when :medium
-      avatar.imgproxy_url(resize: "300x300")
-    when :large
-      avatar.imgproxy_url(resize: "800x800")
-    end
-  end
-end
+# production.rb
+config.active_storage.resolve_model_to_route = :imgproxy_active_storage
+```
+
+```erb
+<%# show.erb.html %>
+<%= image_tag Current.user.avatar.variant(resize: "100x100") %>
 ```
 
 <div class="absolute bottom-4 right-4">
-<QRCode value="https://github.com/imgproxy/imgproxy-rails" />
+<qr-code url="https://github.com/imgproxy/imgproxy-rails" />
 <span class="text-xs">imgproxy-rails on GitHub</span>
-</div>
-
----
-layout: quote
----
-
-# "imgproxy is Amazing!"
-John Nunemaker
-
-<div class="text-xl mt-4">
-"The combination of imgproxy and a CDN is pretty magical. I'm serving millions of images per month and my server never breaks a sweat."
 </div>
 
 ---
