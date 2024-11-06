@@ -8,7 +8,10 @@ highlighter: shiki
 lineNumbers: false
 drawings:
   persist: false
-css: unocss
+download: true
+mdc: true
+talkDurationMinutes: 14
+progressBarStartSlide: 2
 ---
 
 # Keeping it Ruby
@@ -23,18 +26,18 @@ RubyWorld Conference 2024
 </div>
 
 ---
-layout: two-cols
+layout: two-cols-header
 ---
 
-# Your Speakers
+# Speakers
 
 ::left::
 
 ### Andrey Novikov
 <img src="https://github.com/Envek.png" class="rounded-full w-32 mb-4">
 
-- Core contributor to imgproxy
-- Ruby & Go developer
+- imgproxy early adopter
+- Ruby & Go developer at Evil Martians
 - Open source enthusiast
 
 ::right::
@@ -42,9 +45,103 @@ layout: two-cols
 ### Sampo Kuokkanen
 <img src="https://github.com/sampokuokkanen.png" class="rounded-full w-32 mb-4">
 
-- Developer Advocate at imgproxy
-- Ruby community member
-- Open source contributor
+- A fan of imgproxy
+- Head of Evil Martians Japan
+- Ruby enthusiast
+
+---
+
+<a href="https://evilmartians.com/?utm_source=rubyconfau&utm_medium=slides&utm_campaign=threads-callbacks">
+<img alt="Evil Martians" src="/images/01_Evil-Martians_Logo_v2.1_RGB.svg" class="block dark:hidden object-contain text-center m-auto max-h-100" />
+<img alt="Evil Martians" src="/images/02_Evil-Martians_Logo_v2.1_RGB_for-Dark-BG.svg" class="hidden dark:block object-contain text-center m-auto max-h-100" />
+</a>
+
+<p class="text-2xl text-center"><a href="https://evilmartians.com">evilmartians.com</a></p>
+
+---
+
+<a href="https://evilmartians.com/?utm_source=rubyconfau&utm_medium=slides&utm_campaign=threads-callbacks">
+<img alt="Evil Martians" src="/images/Evil-Martians_Logo_Katakana.svg" class="block dark:hidden object-contain text-center m-auto max-h-100" />
+<img alt="Evil Martians" src="/images/Evil-Martians_Logo_Katakana.svg" class="hidden dark:block object-contain text-center m-auto max-h-100" />
+</a>
+
+<p class="text-2xl text-center"><a href="https://evilmartians.jp">evilmartians.jp</a></p>
+
+---
+
+# Martian Open Source
+
+<div class="grid grid-cols-4 grid-rows-2 gap-4">
+  <a href="https://ruby-next.github.io/">
+    <figure>
+      <img alt="Ruby Next" src="/images/martian-oss/ruby-next.png" class="object-contain h-32 mx-auto" />
+      <figcaption>Ruby Next makes modern Ruby code run in older versions and alternative implementations</figcaption>
+    </figure>
+  </a>
+  <a href="https://github.com/yabeda-rb/yabeda">
+    <figure>
+      <img alt="Yabeda" src="/images/martian-oss/yabeda.svg" class="object-contain h-32 mx-auto" />
+      <figcaption>Yabeda: Ruby application instrumentation framework</figcaption>
+    </figure>
+  </a>
+  <a href="https://github.com/evilmartians/lefthook">
+    <figure>
+      <img alt="LeftHook" src="/images/martian-oss/lefthook.svg" class="object-contain h-32 mx-auto" />
+      <figcaption>Lefthook: git hooks manager</figcaption>
+    </figure>
+  </a>
+  <a href="https://anycable.io/">
+    <figure>
+      <img alt="AnyCable" src="/images/martian-oss/anycable.svg" class="object-contain h-32 mx-auto" />
+      <figcaption>AnyCable: Polyglot replacement for ActionCable server</figcaption>
+    </figure>
+  </a>
+  <a href="https://postcss.org/">
+    <figure>
+      <img alt="PostCSS" src="/images/martian-oss/postcss.svg" class="object-contain h-32 mx-auto" />
+      <figcaption>PostCSS: A tool for transforming CSS with JavaScript</figcaption>
+    </figure>
+  </a>
+  <a href="https://imgproxy.net/">
+    <figure>
+      <img alt="Imgproxy" src="/images/martian-oss/imgproxy-light.svg" class="object-contain h-32 mx-auto block dark:hidden" />
+      <img alt="Imgproxy" src="/images/martian-oss/imgproxy-dark.svg" class="object-contain h-32 mx-auto hidden dark:block" />
+      <figcaption>Imgproxy: Fast and secure standalone server for resizing and converting remote images</figcaption>
+    </figure>
+  </a>
+  <a href="https://github.com/DarthSim/overmind">
+    <figure>
+      <img alt="Overmind" src="/images/martian-oss/overmind.svg" class="object-contain h-32 mx-auto" />
+      <figcaption>Overmind: Process manager for Procfile-based applications and tmux </figcaption>
+    </figure>
+  </a>
+  <a href="https://evilmartians.com/oss">
+    <figure>
+      <div class="h-32 text-2xl flex items-center justify-center">
+        <qr-code-vue value="https://evilmartians.com/oss" class="object-contain w-full h-full mx-auto p-4 dark:invert" render-as="svg" margin="1" />
+      </div>
+      <figcaption style="font-size: 1rem; margin-top: 0; line-height: 1.25rem;">Even more at evilmartians.com/oss</figcaption>
+    </figure>
+  </a>
+</div>
+
+<style>
+  a { border-bottom: none !important; }
+  figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.6rem;
+    line-height: 1rem;
+    text-align: center;
+  }
+</style>
+
+<!--
+One thing that we truly love is Open Source. We love to use it, and we also love to give back enhancements to the community. We eager to share results of our work as a ruby gem or npm package, it will help us in the first place to re-use our own solutions, and we can help others to solve their problems and often we will get feedback or patches back. It is a win-win.
+
+And for many years we've created literally over a hundred of open source products, big and small, famous and not so. Very probably your application already depends on a few martian Ruby gems, so check out your Gemfile and count how many of them you have.
+
+Some open source products have even grown into commercial products, like anycable or imgproxy, still staying open source at the time.
+-->
 
 ---
 layout: section
