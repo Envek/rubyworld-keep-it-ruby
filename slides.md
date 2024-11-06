@@ -14,16 +14,26 @@ talkDurationMinutes: 14
 progressBarStartSlide: 2
 ---
 
-# Keeping it Ruby
-## Why Your Product Needs a Ruby SDK
+# Keeping it Ruby:<br /><small class="text-60%">Why Your Product Needs a Ruby SDK</small>
 
-RubyWorld Conference 2024
+<div class="absolute bottom-0 left-0 w-full px-10 py-8 grid grid-cols-2 justify-items-stretch items-end gap-4">
+  <div class="text-left">
+    Sampo Kuokkanen, Andrey Novikov<br />
+    <small>Evil Martians</small><br />
+    <small><a href="https://2024.rubyworld-conf.org/">RubyWorld Conference 2024</a></small><br />
+    <small><time datetime="2024-12-05">05 December 2024</time></small>
+  </div>
 
-<div class="pt-12">
-  <span class="px-2 py-1">
-    Andrey Novikov & Sampo Kuokkanen
-  </span>
+  <div class="w-28 h-28 object-contain justify-self-end">
+    <a href="https://evilmartians.com/"><img alt="Evil Martians" src="/images/01_Evil-Martians_Logo_v2.1_RGB.svg" class="block dark:hidden" /><img alt="Evil Martians" src="/images/02_Evil-Martians_Logo_v2.1_RGB_for-Dark-BG.svg" class="hidden dark:block" /></a>
+  </div>
 </div>
+
+<style>
+  a {
+    border-bottom: none !important;
+  }
+</style>
 
 ---
 layout: two-cols-header
@@ -51,7 +61,7 @@ layout: two-cols-header
 
 ---
 
-<a href="https://evilmartians.com/?utm_source=rubyconfau&utm_medium=slides&utm_campaign=threads-callbacks">
+<a href="https://evilmartians.com/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby">
 <img alt="Evil Martians" src="/images/01_Evil-Martians_Logo_v2.1_RGB.svg" class="block dark:hidden object-contain text-center m-auto max-h-100" />
 <img alt="Evil Martians" src="/images/02_Evil-Martians_Logo_v2.1_RGB_for-Dark-BG.svg" class="hidden dark:block object-contain text-center m-auto max-h-100" />
 </a>
@@ -60,12 +70,15 @@ layout: two-cols-header
 
 ---
 
-<a href="https://evilmartians.com/?utm_source=rubyconfau&utm_medium=slides&utm_campaign=threads-callbacks">
+<a href="https://evilmartians.com/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby">
 <img alt="Evil Martians" src="/images/Evil-Martians_Logo_Katakana.svg" class="block dark:hidden object-contain text-center m-auto max-h-100" />
 <img alt="Evil Martians" src="/images/Evil-Martians_Logo_Katakana.svg" class="hidden dark:block object-contain text-center m-auto max-h-100" />
 </a>
 
-<p class="text-2xl text-center"><a href="https://evilmartians.jp">evilmartians.jp</a></p>
+<p class="text-2xl text-center"><a href="https://evilmartians.jp">evilmartians.jp</a>&nbsp;&emsp;</p>
+
+<div class="absolute bottom-64px left-128px rotate-10 text-2xl">邪悪な火星人？</div>
+<div class="absolute bottom-64px right-128px rotate-350 text-5xl">🏯</div>
 
 ---
 
@@ -124,6 +137,8 @@ layout: two-cols-header
     </figure>
   </a>
 </div>
+
+<div v-click class="absolute bottom-32px left-256px rotate-10 text-2xl py-24 px-6 bg-rose-900/25 border border-rose-500">Today's topic</div>
 
 <style>
   a { border-bottom: none !important; }
@@ -372,26 +387,55 @@ John Nunemaker
 </div>
 
 ---
-layout: section
----
 
-# Thank You!
+# Thank you!
 
-<div class="grid grid-cols-2 gap-4 mt-8">
+<div class="grid grid-cols-[8rem_3fr_4fr] mt-12 gap-2">
+
+<div class="justify-self-start">
+<img alt="Imgproxy" src="/images/martian-oss/imgproxy-light.svg" class="object-contain h-32 mx-auto block dark:hidden" />
+<img alt="Imgproxy" src="/images/martian-oss/imgproxy-dark.svg" class="object-contain h-32 mx-auto hidden dark:block" />
+</div>
+
+- <logos-github-icon class="dark:invert" /> [@imgproxy](https://github.com/imgproxy/)
+- <logos-twitter /> [@imgproxy_net](https://twitter.com/imgproxy_net)
+- <logos-linkedin-icon /> [@imgproxy](https://www.linkedin.com/company/imgproxy)
+
+<div>
+<qr-code url="https://imgproxy.net/" caption="imgproxy.net" class="w-32 my-2" />
+</div>
+
+<div class="justify-self-start">
+<a href="https://evilmartians.com/"><img alt="Evil Martians" src="/images/01_Evil-Martians_Logo_v2.1_RGB.svg" class="w-32 h-32 object-contain block dark:hidden" /><img alt="Evil Martians" src="/images/02_Evil-Martians_Logo_v2.1_RGB_for-Dark-BG.svg" class="w-32 h-32 object-contain hidden dark:block" /></a>
+</div>
+
 <div>
 
-## Resources
-- 📘 imgproxy.rb Documentation
-- 🛠️ imgproxy-rails Gem
-- 📚 Example Projects
-
+- <logos-github-icon class="dark:invert" /> [@evilmartians](https://github.com/evilmartians?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
+- <logos-twitter /> [@evilmartians](https://twitter.com/evilmartians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
+- <logos-linkedin-icon /> [@evil-martians](https://www.linkedin.com/company/evil-martians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
+- <logos-instagram-icon class="dark:invert" /> [@evil.martians](https://www.instagram.com/evil.martians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 </div>
+
 <div>
+<qr-code url="https://evilmartians.com/" caption="evilmartians.com" class="w-32 my-2" />
+</div>
 
-## Contact
-- 🐦 @imgproxy_net
-- 💬 Discord: imgproxy.net/discord
-- 🌐 imgproxy.net
+<div class="col-span-3">
+
+Our awesome blog: [evilmartians.com/chronicles](https://evilmartians.com/chronicles/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)!
+
+<p class="text-sm">See these slides at <a href="https://envek.github.io/rubyworld-keep-it-ruby/">envek.github.io/rubyworld-keep-it-ruby</a></p>
 
 </div>
 </div>
+
+<style>
+  ul a { border-bottom: none !important; }
+  ul { list-style-type: none !important; }
+  ul li { margin-left: 0; padding-left: 0; }
+</style>
+
+<!--
+That's it! Please check out Evil Martians blog, we have a lot of interesting blog posts about Ruby, Rails, frontend, design and other things.
+-->
