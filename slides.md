@@ -179,7 +179,7 @@ layout: default
 - Active ecosystem
 
 ## GitHub Statistics
-- Top 10 most popular language
+- Top 10 most popular language!
 - Strong in web development
 - Active community
 
@@ -207,14 +207,90 @@ image: https://images.unsplash.com/photo-1635776062127-d379bfcba9f8
 # Introducing imgproxy
 
 - Open source image processing server
-- Written in Go for performance
+- Written in Go and C for performance
+- Dockerized and easy to deploy
 - Perfect for Ruby applications
 - On-the-fly image processing
 - Cost-effective solution
 
 ---
+layout: default
+---
+
+# imgroxy: the power of open source
+
+- Open source and free!
+- There is a paid version with additional features
+- Easy to use and integrate with Ruby (more of that later from Andrey!)
+
+---
+layout: default
+---
+
+# Why though? I'm happy with resizing images!
+
+- imgproxy is more than just resizing
+- Security: no more image bombs
+- Performance: on-the-fly processing
+- Cost: no need to store multiple versions
+  - This can ammount to quite a lot in storage costs!
+
+---
 layout: section
 ---
+
+---
+layout: default
+---
+
+# imgproxy: Open Source vs Pro
+
+## Open Source Features
+
+- Format conversion: JPEG, PNG, WebP, AVIF, GIF, SVG, ICO, HEIC, BMP, TIFF, animated GIF and WebP
+- Resizing, cropping, trimming, rotating, flattening (color fill)
+- Filters: blurring, sharpening, pixelation
+- Watermarking
+- Image optimization: quality settings, auto quantization, metadata stripping
+- Security: URL signing, HTTP Authorization, source image restrictions
+- Monitoring: Prometheus, NewRelic, Datadog
+- Error reporting: Bugsnag, Honeybadger, Sentry, Airbrake
+- Miscellaneous: presets, fallback images, skip processing, expires, ETag
+
+## Pro Features
+
+- All OSS features plus:
+  - Additional format support: PDF, MP4, GIF to MP4 conversion
+  - Video thumbnail generation
+  - Advanced resizing algorithms
+  - Semi-transparent background flattening
+  - Image adjustment: saturation, contrast, brightness
+  - Unsharpening
+  - SVG style injection
+  - Chained processing pipelines
+  - Custom per-image watermarks
+  - Advanced JPEG optimizations
+  - SVG minification
+  - Advanced optimization parameters via URL
+  - Object detection for smart cropping and blurring
+  - Auto-quality by SSIM
+  - Custom source image request headers
+  - Custom per-image fallback images
+  - Get image info
+
+## Summary
+
+- **Open Source**: Free, community-supported, great for most use cases.
+- **Pro**: Paid, additional features, ideal for advanced and enterprise needs.
+
+---
+layout: default
+---
+
+# Open source and paid support
+
+- While there isn't a dedicated paid support plan for CRuby, the community is always there to help! 
+- For those using jRuby, paid support is available: https://www.headius.com/jruby-support
 
 # Real World Example: Ruby on Rails + imgproxy
 
