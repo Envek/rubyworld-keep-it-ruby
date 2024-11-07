@@ -250,11 +250,11 @@ end
 
 ```ruby
 # On-the-fly processing
-image_url = imgproxy.generate_url(
-  width: 800,
-  height: 600,
-  resizing_type: :fill,
-  url: image.url
+url = Imgproxy.url_for(
+  "http://images.example.com/images/image.jpg",
+  width: 500,
+  height: 400,
+  resizing_type: :fill
 )
 ```
 
@@ -314,15 +314,17 @@ But always better to use a battle-tested library that will hide all gory details
 ```ruby {all}{class:'!children:text-xs'}
 require 'imgproxy'
 
-imgproxy = Imgproxy.configure do |config|
+Imgproxy.configure do |config|
+  # Full URL to where your imgproxy lives.
+  config.endpoint = "http://imgproxy.example.com"
+  # Hex-encoded signature key and salt
   config.key = '943b421c9eb07c83...'
   config.salt = '520f986b998545b4...'
-  config.endpoint = 'http://imgproxy.example.com'
 end
 
-url = imgproxy.generate_url(
-  url: 'http://example.com/image.jpg',
-  width: 300,
+url = Imgproxy.url_for(
+  "http://images.example.com/images/image.jpg",
+  width: 500,
   height: 400,
   resizing_type: :fill
 )
