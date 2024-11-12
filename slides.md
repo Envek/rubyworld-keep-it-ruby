@@ -177,6 +177,10 @@ layout: section
 
 # Ruby in 2024: Still Going Strong
 
+<!--
+It's almost the end of 2024, but Ruby is still going strong! Let's look at some of the reasons for it.
+-->
+
 ---
 layout: default
 ---
@@ -214,6 +218,10 @@ graph TD
 </div>
 </div>
 
+<!--
+This slide shows what makes Ruby special. There’s RubyGems, with its ever-growing library of gems, and GitHub stats proving Ruby’s strength in web development. For businesses, this means access to tried-and-tested solutions and a dependable language that gets things done. The startup popularity of Ruby proves that with Ruby, it's possible to move fast!
+-->
+
 ---
 layout: image-right
 image: https://images.unsplash.com/photo-1635776062127-d379bfcba9f8
@@ -227,6 +235,10 @@ image: https://images.unsplash.com/photo-1635776062127-d379bfcba9f8
 - Perfect for Ruby applications
 - On-the-fly image processing
 - Cost-effective solution
+
+<!--
+Now, to understand the technical points Andrey is going to tell you about, let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now its own company, Foxes With Matches Inc. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes.
+-->
 
 ---
 layout: default
