@@ -59,6 +59,10 @@ layout: two-cols-header
 - Head of Evil Martians Japan
 - Ruby enthusiast
 
+<!--
+Hello, world! Or: Hello, RubyWorld! I’m Sampo Kuokkanen from Evil Martians, and I’m thrilled to be here today with Andrey Novikov. Today, we’re diving into why your product needs a Ruby SDK and why Ruby remains a powerful choice for so many of us in 2024 and beyond. At Evil Martians, we’re passionate about open-source projects that genuinely make a difference, and we’ll show you how they can make your life much easier! And today's example could even save you money.
+-->
+
 ---
 
 <a href="https://evilmartians.com/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby">
@@ -67,6 +71,11 @@ layout: two-cols-header
 </a>
 
 <p class="text-2xl text-center"><a href="https://evilmartians.com">evilmartians.com</a></p>
+
+<!--
+Evil Martians transform growth-stage startups into unicorns, build developer tools, and create open source products.
+Evil Martians is located in New York, United States of America.
+-->
 
 ---
 
@@ -79,6 +88,10 @@ layout: two-cols-header
 
 <div class="absolute bottom-64px left-128px rotate-10 text-2xl">邪悪な火星人？</div>
 <div class="absolute bottom-64px right-128px rotate-350 text-5xl">🏯</div>
+
+<!--
+Evil Martians is also in Japan! We have an office in Edobori, Osaka, Japan! The Japanese office is also growing, we are soon going to have our sixth member join us. Be sure to contact us if you happen to visit Osaka and are interested in Mars! Unfortunately, we do not yet have an office in Shimane, but maybe some day.
+-->
 
 ---
 
@@ -191,9 +204,11 @@ graph TD
     A[Ruby Ecosystem] --> B[RubyGems]
     A --> C[Rails]
     B --> D[100B+ Downloads]
-    C --> E[Enterprise Usage]
-    A --> F[Active Community]
+    D --> H[We Love Gems!]
+    C --> E[Startup Favorite]
+    A --> F[Active & Friendly Community]
     F --> G[Regular Updates]
+    E --> K[Investments!]
 ```
 
 </div>
@@ -289,7 +304,7 @@ layout: default
 
 # Open source and paid support
 
-- While there isn't a dedicated paid support plan for CRuby, the community is always there to help! 
+- While there isn't a dedicated paid support plan for CRuby, the community is always there to help!
 - For those using jRuby, paid support is available: https://www.headius.com/jruby-support
 
 # Real World Example: Ruby on Rails + imgproxy
