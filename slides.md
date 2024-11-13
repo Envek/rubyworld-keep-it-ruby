@@ -90,7 +90,7 @@ Evil Martians is located in New York, United States of America.
 <div class="absolute bottom-64px right-128px rotate-350 text-5xl">🏯</div>
 
 <!--
-Evil Martians is also in Japan! We have an office in Edobori, Osaka, Japan! The Japanese office is also growing, we are soon going to have our sixth member join us. Be sure to contact us if you happen to visit Osaka and are interested in Mars! Unfortunately, we do not yet have an office in Shimane, but maybe some day.
+Evil Martians is also in Japan! We have an office in Edobori, Osaka! The Japanese office is also growing, we are soon going to have our sixth member join us. Be sure to contact us if you happen to visit Osaka and are interested in Mars! Unfortunately, we do not yet have an office in Shimane, but maybe some day.
 -->
 
 ---
@@ -168,7 +168,7 @@ One thing that we truly love is Open Source. We love to use it, and we also love
 
 And for many years we've created literally over a hundred of open source products, big and small, famous and not so. Very probably your application already depends on a few martian Ruby gems, so check out your Gemfile and count how many of them you have.
 
-Some open source products have even grown into commercial products, like anycable or imgproxy, still staying open source at the time.
+Some open source products have even grown into commercial products, like anycable or imgproxy, still staying open source at the time. [click] And today we will talk about imgproxy.
 -->
 
 ---
@@ -241,98 +241,77 @@ Now, to understand the technical points Andrey is going to tell you about, let m
 -->
 
 ---
-layout: default
+class: annotated-list
 ---
 
-# imgroxy: the power of open source
+# But I'm happy with my current setup!
 
-- Open source and free!
-- There is a paid version with additional features
-- Easy to use and integrate with Ruby (more of that later from Andrey!)
+<v-clicks>
+
+ - Complexity: **where to store, how to process**
+
+   You need to store all those versions, and process them in background jobs. This is a lot of code.
+
+ - Latency: **background jobs can queue**
+
+   It can take a while to get your image processed, need to display some placeholder meanwhile.
+
+ - Create new variants: **a lot to do**!
+
+   When you have millions of uploads, that means re-download all those original files and generate that new version in a million of millions backrounds jobs.
+
+ - Clean up old unneeded ones: **do you even have a plan?**
+
+   When you have millions of uploads, that means you have millions of files that are not used anymore.
+
+ - Security and stability: **what if image processing go wrong?**
+
+   Where your images are being processed? What if someone uploads a bomb image? Will it crash your main application?
+
+</v-clicks>
 
 ---
-layout: default
+class: annotated-list
 ---
 
-# Why though? I'm happy with resizing images!
+# How imgproxy solves this
 
-- imgproxy is more than just resizing
-- Security: no more image bombs
-- Performance: on-the-fly processing
-- Cost: no need to store multiple versions
-  - This can ammount to quite a lot in storage costs!
+<v-clicks>
 
----
-layout: section
----
+ - Complexity: **replace your code with a microservice**
 
----
-layout: default
----
+   Throw away all these backround jobs, and replace them with a simple URL construction.
 
-# imgproxy: Open Source vs Pro
+ - Latency: **Dedicated service that do only images processing**
 
-## Open Source Features
+   Very performant per se, and you can scale it independently from your main application, also add CDN in front of it
 
-- Format conversion: JPEG, PNG, WebP, AVIF, GIF, SVG, ICO, HEIC, BMP, TIFF, animated GIF and WebP
-- Resizing, cropping, trimming, rotating, flattening (color fill)
-- Filters: blurring, sharpening, pixelation
-- Watermarking
-- Image optimization: quality settings, auto quantization, metadata stripping
-- Security: URL signing, HTTP Authorization, source image restrictions
-- Monitoring: Prometheus, NewRelic, Datadog
-- Error reporting: Bugsnag, Honeybadger, Sentry, Airbrake
-- Miscellaneous: presets, fallback images, skip processing, expires, ETag
+ - Adding new variants: **Just construct new URL**
 
-## Pro Features
+   Construct new URL, request it, done!
 
-- All OSS features plus:
-  - Additional format support: PDF, MP4, GIF to MP4 conversion
-  - Video thumbnail generation
-  - Advanced resizing algorithms
-  - Semi-transparent background flattening
-  - Image adjustment: saturation, contrast, brightness
-  - Unsharpening
-  - SVG style injection
-  - Chained processing pipelines
-  - Custom per-image watermarks
-  - Advanced JPEG optimizations
-  - SVG minification
-  - Advanced optimization parameters via URL
-  - Object detection for smart cropping and blurring
-  - Auto-quality by SSIM
-  - Custom source image request headers
-  - Custom per-image fallback images
-  - Get image info
+ - Cleaning up old ones: **Let CDN caches to expire**
 
-## Summary
+   Do you really need to store thumbnails at all? Care only for originals.
 
-- **Open Source**: Free, community-supported, great for most use cases.
-- **Pro**: Paid, additional features, ideal for advanced and enterprise needs.
+ - Security and stability: **it is separate from your main application** 
+
+   It handles image bombs, and other nasty stuff, but even if some malicious code will be executed, it will find itself in empty Docker container without anything in it.
+
+</v-clicks>
 
 ---
 layout: default
 ---
 
-# Open source and paid support
-
-- While there isn't a dedicated paid support plan for CRuby, the community is always there to help!
-- For those using jRuby, paid support is available: https://www.headius.com/jruby-support
-
-# Real World Example: Ruby on Rails + imgproxy
-
----
-layout: default
----
-
-# Traditional Image Processing vs imgproxy
+# Traditional image processing vs imgproxy
 
 <div class="grid grid-cols-2 gap-4">
 
 <div>
-<h3>Traditional Approach</h3>
+<h3>Traditional approach</h3>
 
-```ruby
+```ruby {all}{class:'!children:text-sm'}
 # Heavy background jobs
 class ProcessImageJob < ApplicationJob
   def perform(image)
@@ -343,22 +322,25 @@ class ProcessImageJob < ApplicationJob
 end
 ```
 
+- Overall complexity
 - Server storage needed
-- Background processing
+- Background processing (latency!)
 - Higher infrastructure costs
 </div>
 
 <div>
-<h3>imgproxy Approach</h3>
+<h3>imgproxy approach</h3>
 
-```ruby
-# On-the-fly processing
-url = Imgproxy.url_for(
-  "http://images.example.com/images/image.jpg",
-  width: 500,
-  height: 400,
-  resizing_type: :fill
-)
+```erb {all}{class:'!children:text-sm'}
+<%# On-the-fly processing %>
+<img src="<%=
+  Imgproxy.url_for(
+    'http://images.example.com/images/image.jpg',
+    width: 500,
+    height: 400,
+    resizing_type: :fill
+ )
+%>">
 ```
 
 - No storage needed
@@ -369,16 +351,106 @@ url = Imgproxy.url_for(
 </div>
 
 ---
+layout: quote
+---
+
+## Let the community speak
+
+<blockquote class="my-8">
+
+I clicked the button, deployed the OSS version and hooked up **the imgproxy.rb ruby gem** in my app in under an hour.
+
+Within a few weeks, we had switched over all of our upload, template, and graphic previews to Imgproxy…
+
+Doing so resulted in the **removal of hundreds of lines of code** while also **enabling new functionality**.
+
+</blockquote>
+
+— John Nunemaker: https://www.johnnunemaker.com/imgproxy/
+
+<qr-code url="https://www.johnnunemaker.com/imgproxy/" caption="Imgproxy is Amazing" class="w-36 absolute bottom-48px right-48px" />
+
+<style>
+  blockquote p {
+    font-size: 1.5rem;
+    line-height: 1.5em;
+  }
+  blockquote p + p {
+    margin-top: 1em;
+  }
+</style>
+
+---
 layout: section
+class: text-lg
 ---
 
-# Technical Deep Dive
+# Why to “keep it Ruby?”
 
-Why it matters for Ruby developers
+Why to spend time and effort to provide official Ruby SDK?
+
+<v-click class="mt-10">
+Answer is in this quote from the previous slide:
+
+<blockquote class="my-8">
+
+I clicked the button, deployed the OSS version and hooked up the imgproxy.rb ruby gem in my app <span v-mark.orange="{ at: 2 }" class="font-bold">in under an hour</span>.
+
+</blockquote>
+
+It wouldn't be possible without a ready to use Ruby gem!
+</v-click>
+
+<style>
+  blockquote p {
+    font-size: 1.5rem;
+    line-height: 1.5em;
+  }
+  blockquote p + p {
+    margin-top: 1em;
+  }
+</style>
 
 ---
-layout: two-cols
-layoutClass: gap-2
+class: text-sm
+---
+
+## Technical example: URL signing
+
+The only thing a client need to care about is constructing URLs to images processed through imgproxy.
+
+Given original image URL:
+
+```txt {all}{class:'!children:text-sm'}
+https://mars.nasa.gov/system/downloadable_items/40368_PIA22228.jpg
+```
+
+Result URL to get 300×150 thumbnail for Retina displays, smart cropped, and saturated, with watermark in right bottom corner:
+
+```txt {1-6|2|3-4|6}{class:'!children:text-sm'}
+https://demo.imgproxy.net/
+doqHNTjtFpozyphRzlQTHyBloSoYS13lLuMDozTnxqA/
+rs:fill:300:150:1/dpr:2/g:ce/sa:1.4/
+wm:0.5:soea:0:0:0.2/wmu:aHR0cHM6Ly9pbWdwcm94eS5uZXQvd2F0ZXJtYXJrLnN2Zw/
+plain/
+https:%2F%2Fmars.nasa.gov%2Fsystem%2Fdownloadable_items%2F40368_PIA22228.jpg
+```
+
+See https://docs.imgproxy.net/generating_the_url
+
+
+<Arrow v-click="1" x1="780" y1="320" x2="500" y2="330" />
+<div v-click="1" class="absolute top-310px right-60px">Digital signature</div>
+
+<Arrow v-click="2" x1="755" y1="345" x2="475" y2="355" />
+<div v-click="2" class="absolute top-335px right-60px">Processing options</div>
+
+<Arrow v-click="3" x1="760" y1="370" x2="450" y2="400" />
+<div v-click="3" class="absolute top-360px right-60px">Original image URL</div>
+
+
+---
+transition: slide-left
 ---
 
 ### Plain Ruby implementation
@@ -396,7 +468,7 @@ def generate_url(url, width, height)
   encoded_url = Base64.urlsafe_encode64(url).tr('=', '')
   encoded_url = encoded_url.scan(/.{1,16}/).join('/')
 
-  path = "/resize:fill:#}width}:#{height}/#{encoded_url}"
+  path = "/resize:fill:#{width}:#{height}/#{encoded_url}"
   hmac = OpenSSL.hmac(
     OpenSSL::Digest.new('sha256'), key, "#{salt}#{path}"
   )
@@ -408,13 +480,15 @@ end
 url = generate_url("http://example.com/image.jpg", 300, 400)
 ```
 
-::right::
+---
+transition: slide-left
+---
 
 ### With imgproxy gem
 
 But always better to use a battle-tested library that will hide all gory details
 
-```ruby {all}{class:'!children:text-xs'}
+```ruby {all|none|all}{at:1,class:'!children:text-sm'}
 require 'imgproxy'
 
 Imgproxy.configure do |config|
@@ -424,16 +498,18 @@ Imgproxy.configure do |config|
   config.key = '943b421c9eb07c83...'
   config.salt = '520f986b998545b4...'
 end
-
-url = Imgproxy.url_for(
+```
+```erb {none|all|all}{at:1,class:'!children:text-sm'}
+<%# show.erb.html %>
+<%= image_tag Imgproxy.url_for(
   "http://images.example.com/images/image.jpg",
   width: 500,
   height: 400,
   resizing_type: :fill
-)
+) %>
 ```
 
-<qr-code url="https://github.com/imgproxy/imgproxy.rb" class="w-36 absolute bottom-36px right-36px" />
+<qr-code url="https://github.com/imgproxy/imgproxy.rb" caption="imgproxy.rb gem" class="w-36 absolute bottom-48px right-60px" />
 
 ---
 layout: default
@@ -443,27 +519,45 @@ layout: default
 
 What is even better: to use familiar API and don't change your codebase!
 
-```ruby
-# development.rb
+```ruby {all}{class:'!children:text-sm'}
+# Gemfile
+gem 'imgproxy-rails'
+```
+
+```ruby {all}{class:'!children:text-sm'}
+# development.rb: use built-in Rails proxy
 config.active_storage.resolve_model_to_route = :rails_storage_proxy
 
-# production.rb
+# production.rb: use imgproxy
 config.active_storage.resolve_model_to_route = :imgproxy_active_storage
 ```
 
-```erb
+```erb {all}{class:'!children:text-sm'}
 <%# show.erb.html %>
 <%= image_tag Current.user.avatar.variant(resize: "100x100") %>
 ```
 
-<div class="absolute bottom-4 right-4">
-<qr-code url="https://github.com/imgproxy/imgproxy-rails" />
-<span class="text-xs">imgproxy-rails on GitHub</span>
-</div>
+You don't even have to know that you are using imgproxy! ✨
+
+And you can migrate the whole application to imgproxy in an hour!
+
+<qr-code url="https://github.com/imgproxy/imgproxy-rails" caption="imgproxy-rails gem" class="absolute w-36 bottom-48px right-48px" />
+
+
+---
+layout: center
+class: text-4xl text-center
+---
+
+Keeping your product Ruby-friendly
+
+={class="text-8xl"}
+
+more customers, happier customers
 
 ---
 
-# Thank you!
+# Keep it Ruby! Thank you!
 
 <div class="grid grid-cols-[8rem_3fr_4fr] mt-12 gap-2">
 
