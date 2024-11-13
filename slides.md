@@ -223,58 +223,150 @@ This slide shows what makes Ruby special. There’s RubyGems, with its ever-grow
 -->
 
 ---
-layout: image-right
-image: https://images.unsplash.com/photo-1635776062127-d379bfcba9f8
+class: annotated-list
 ---
 
-# Introducing imgproxy
+# The common problem for any web app
 
-- Open source image processing server
-- Written in Go and C for performance
-- Dockerized and easy to deploy
-- Perfect for Ruby applications
-- On-the-fly image processing
-- Cost-effective solution
+Handling images uploaded by users: profile pictures, product photos, reviews, …
+
+We need to store them and show in various places, of course! And for this we need to:
+
+<v-clicks>
+
+ - Generate thumbnails to save bandwidth
+
+ - Crop to fit design
+
+ - Add watermarks to prevent theft
+
+ - …
+
+</v-clicks>
 
 <!--
-Now, to understand the technical points Andrey is going to tell you about, let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now its own company, Foxes With Matches Inc. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes.
+
+And, of course, not only one need to receive images, but also then display them back in various forms back to users. And even now in year 2023 it is bad idea to let browsers download original images just to show them in some list downsized to a size of a thumb.
+
+So one need to resize them, crop if their aspect ratio differs from desired, add watermarks, strip sensitive metadata, and maybe even apply some filters.
 -->
 
 ---
 class: annotated-list
 ---
 
-# But I'm happy with my current setup!
+# “Classic” way
 
 <v-clicks>
 
- - Complexity: **where to store, how to process**
+  - Upload image to the server
 
-   You need to store all those versions, and process them in background jobs. This is a lot of code.
+    Probably among other form fields
 
- - Latency: **background jobs can queue**
+  - Store it somewhere
 
-   It can take a while to get your image processed, need to display some placeholder meanwhile.
+    Often on S3 or other cloud storage
 
- - Create new variants: **a lot to do**!
+  - Generate all required thumbnails
 
-   When you have millions of uploads, that means re-download all those original files and generate that new version in a million of millions backrounds jobs.
+    As many as your design requires
 
- - Clean up old unneeded ones: **do you even have a plan?**
+  - Store them somewhere
 
-   When you have millions of uploads, that means you have millions of files that are not used anymore.
+    Again S3 or other cloud storage
 
- - Security and stability: **what if image processing go wrong?**
+  - Serve them to the user
 
-   Where your images are being processed? What if someone uploads a bomb image? Will it crash your main application?
+    CDN will help here
 
 </v-clicks>
+
+<!--
+
+And there is kind of traditional way of doing it: upload image to the server, store it somewhere, generate all required thumbnails, store them somewhere, and then serve them to the user. I have implemented it once or twice long long time ago. And, believe me, it is not so easy as it sounds.
+
+-->
 
 ---
 class: annotated-list
 ---
 
-# How imgproxy solves this
+# Problems of “classic” approach
+
+<v-clicks>
+
+ - Hard to predict latency: **background jobs can queue**
+
+   It can take a while to get your image processed, and “image is processing” fallbacks are ugly
+
+ - Hard to add new variants: **need to reprocess all images**
+
+   Possibly millions of jobs to run before enabling it on the front-end
+
+ - And hard to clean up old ones
+
+   Space is cheap, but not free
+
+ - Deployment: **gets complicated**
+
+   You need to install ImageMagick or libvips on all servers/containers
+
+ - Security: **it is your headache**
+
+   Processing images on your servers is a security and stability risk,
+   e.g. [PNG decompression bomb](https://www.bamsoftware.com/hacks/deflate.html).
+
+</v-clicks>
+
+<!--
+But still, this approach has plenty of limitations and drawbacks:
+
+ - that latency about which we just talked,
+ - necessity to reprocess all images when you need to add new thumbnail size **prior** to displaying (you don't know which are going to be displayed, after all) and it requires a lot of time and ultimately slows you down.
+ - Cleaning up old unneeded thumbnails is also cumbersome.
+ - And oh yes, you need to install imagemagick or libvips to your servers and containers, and it is not so easy as it sounds.
+ - And it is also security risk, as you need to process images on your servers, so any script kid can do a Denial of Service by uploading a PNG bomb and eating all the memory on your application server.
+-->
+
+---
+layout: cover
+class: text-center
+---
+
+# Do we have to do things this way?
+
+What if we could _just_ generate thumbnails on the fly?
+
+<!--
+But to be honest, even if we got used to this approach, it is not the only one. What if we could just generate thumbnails on the fly?
+-->
+
+---
+
+# Meet image processing servers
+
+They do just one thing, but do it well
+
+There are many of them:
+
+ - [imaginary](https://github.com/h2non/imaginary)
+ - [thumbor](https://www.thumbor.org)
+ - [cloudinary](https://cloudinary.com/)
+ - [imgix](https://www.imgix.com/)
+ - [imagor](https://github.com/cshum/imagor)
+ - [**imgproxy**](https://imgproxy.net/) (our favorite ✨)
+
+<!--
+And there are such services, they are called image processing servers. There are cloud native ones, like Cloudinary, and there are self-hosted ones, like imaginary and imgproxy. And all they do is taking away burden of image processing from you and your application servers. And this is great!
+
+As you can see from much smaller sequence diagram, application server doesn't have to even pass images through itself, all it needs to know is image URL which can be used to craft or construct URL with instructions for image processing service and it will do everything else by itself.
+-->
+
+---
+class: annotated-list
+---
+
+# Solving it with on-the-fly processing
 
 <v-clicks>
 
@@ -282,23 +374,51 @@ class: annotated-list
 
    Throw away all these backround jobs, and replace them with a simple URL construction.
 
- - Latency: **Dedicated service that do only images processing**
+ - Latency: **dedicated service that do only images processing**
 
    Very performant per se, and you can scale it independently from your main application, also add CDN in front of it
 
- - Adding new variants: **Just construct new URL**
+ - Adding new variants: **just construct new URL**
 
    Construct new URL, request it, done!
 
- - Cleaning up old ones: **Let CDN caches to expire**
+ - Cleaning up old ones: **let CDN caches to expire**
 
    Do you really need to store thumbnails at all? Care only for originals.
 
- - Security and stability: **it is separate from your main application** 
+ - Security and stability: **it is separate from your main application**
 
    It handles image bombs, and other nasty stuff, but even if some malicious code will be executed, it will find itself in empty Docker container without anything in it.
 
 </v-clicks>
+
+
+---
+layout: image-right
+class: text-sm annotated-list
+image: /images/imgproxy-website.png
+---
+
+# Introducing imgproxy
+
+- Open source image processing server
+- Written in Go and C for performance
+- Uses libvips for optimal image processing
+- Dockerized and easy to deploy
+- Most Ruby-friendly solution[^1]
+- Started at Evil Martians
+
+
+[^1]: That's what we believe in!
+
+<style>
+  .footnotes { font-size: 0.75em; margin-top: 3em; }
+</style>
+
+<!--
+Now, to understand the technical points Andrey is going to tell you about, let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now its own company, Foxes With Matches Inc. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes.
+-->
+
 
 ---
 layout: default
@@ -427,7 +547,7 @@ https://mars.nasa.gov/system/downloadable_items/40368_PIA22228.jpg
 
 Result URL to get 300×150 thumbnail for Retina displays, smart cropped, and saturated, with watermark in right bottom corner:
 
-```txt {1-6|2|3-4|6}{class:'!children:text-sm'}
+```txt {1-6|2|3-4|6|all}{class:'!children:text-sm'}
 https://demo.imgproxy.net/
 doqHNTjtFpozyphRzlQTHyBloSoYS13lLuMDozTnxqA/
 rs:fill:300:150:1/dpr:2/g:ce/sa:1.4/
