@@ -223,6 +223,20 @@ This slide shows what makes Ruby special. There’s RubyGems, with its ever-grow
 -->
 
 ---
+layout: center
+class: text-5xl
+---
+
+We 💓 Ruby
+
+---
+layout: center
+class: text-3xl
+---
+
+But sometimes it is just not right tool for the job
+
+---
 class: annotated-list
 ---
 
@@ -253,9 +267,12 @@ So one need to resize them, crop if their aspect ratio differs from desired, add
 
 ---
 class: annotated-list
+layout: two-cols-header
 ---
 
 # “Classic” way
+
+::left::
 
 <v-clicks>
 
@@ -280,6 +297,31 @@ class: annotated-list
     CDN will help here
 
 </v-clicks>
+
+::right::
+
+```mermaid
+sequenceDiagram
+    User->>Server: Uploads Image
+    Server->>Storage: Stores Image
+    Server->>JobQueue: Queues Job
+    Server->>User: Upload successful
+    User->>Server: Requests thumbnail
+    Server->>Storage: Retrieves Thumbnail
+    Storage-->>Server: There are no thumbnails yet!
+    Server->>User: “Image is processing”
+    activate JobQueue
+    Note over JobQueue: Job<br/>started
+    Storage->>JobQueue: <br/>Retrieve image
+    Note over JobQueue: Generates<br>thumbnail
+    deactivate JobQueue
+    User->>Server: Requests thumbnail
+    Server->>ImageStorage: Retrieves Thumbnail
+    ImageStorage->>Server: Oh yes, of course, here it is
+    Server->>User: Returns thumbnail
+```
+
+<div v-click="3" class="absolute bottom-260px right-120px rotate-10 text-xs p-1 bg-rose-900/25 border border-rose-500 text-center">Unpredictable<br/>latency<br/>here</div>
 
 <!--
 
@@ -342,8 +384,12 @@ But to be honest, even if we got used to this approach, it is not the only one. 
 -->
 
 ---
+layout: two-cols-header
+---
 
 # Meet image processing servers
+
+::left::
 
 They do just one thing, but do it well
 
@@ -355,6 +401,27 @@ There are many of them:
  - [imgix](https://www.imgix.com/)
  - [imagor](https://github.com/cshum/imagor)
  - [**imgproxy**](https://imgproxy.net/) (our favorite ✨)
+
+::right::
+
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Server
+    participant Storage
+    participant imgproxy
+
+    User->>Storage: Uploads Image
+    User->>Server: Notifies about upload
+    Server->>User: Thumbnail URL
+    User->>imgproxy: Requests thumbnail
+    activate imgproxy
+    Storage->>imgproxy: Retrieves image
+    Note over imgproxy: generate thumbnail<br>on the fly
+    imgproxy->>User: Respond with thumbnail
+    deactivate imgproxy
+```
 
 <!--
 And there are such services, they are called image processing servers. There are cloud native ones, like Cloudinary, and there are self-hosted ones, like imaginary and imgproxy. And all they do is taking away burden of image processing from you and your application servers. And this is great!
@@ -394,6 +461,34 @@ class: annotated-list
 
 
 ---
+class: text-2xl annotated-list
+---
+
+## Which one to choose?
+
+<v-clicks>
+
+ - Should it be one _written_ in Ruby?
+
+   But if it is a dedicated service, does it matter?
+
+   Maybe it is better to choose most performant one?
+
+ - Should it be one that is **easy to use from Ruby**?
+
+   What are you looking first for when choosing a new dependency?
+
+</v-clicks>
+
+---
+layout: center
+class: text-5xl
+---
+
+Is there a gem?
+
+
+---
 layout: image-right
 class: text-sm annotated-list
 image: /images/imgproxy-website.png
@@ -409,10 +504,10 @@ image: /images/imgproxy-website.png
 - Started at Evil Martians
 
 
-[^1]: That's what we believe in!
+[^1]: There is a gem! Two of them!
 
 <style>
-  .footnotes { font-size: 0.75em; margin-top: 3em; }
+  .footnotes { font-size: 0.8em; margin-top: 3em; }
 </style>
 
 <!--
@@ -429,7 +524,7 @@ layout: default
 <div class="grid grid-cols-2 gap-4">
 
 <div>
-<h3>Traditional approach</h3>
+<h3>“Classic” approach</h3>
 
 ```ruby {all}{class:'!children:text-sm'}
 # Heavy background jobs
@@ -469,67 +564,6 @@ end
 </div>
 
 </div>
-
----
-layout: quote
----
-
-## Let the community speak
-
-<blockquote class="my-8">
-
-I clicked the button, deployed the OSS version and hooked up **the imgproxy.rb ruby gem** in my app in under an hour.
-
-Within a few weeks, we had switched over all of our upload, template, and graphic previews to Imgproxy…
-
-Doing so resulted in the **removal of hundreds of lines of code** while also **enabling new functionality**.
-
-</blockquote>
-
-— John Nunemaker: https://www.johnnunemaker.com/imgproxy/
-
-<qr-code url="https://www.johnnunemaker.com/imgproxy/" caption="Imgproxy is Amazing" class="w-36 absolute bottom-48px right-48px" />
-
-<style>
-  blockquote p {
-    font-size: 1.5rem;
-    line-height: 1.5em;
-  }
-  blockquote p + p {
-    margin-top: 1em;
-  }
-</style>
-
----
-layout: section
-class: text-lg
----
-
-# Why to “keep it Ruby?”
-
-Why to spend time and effort to provide official Ruby SDK?
-
-<v-click class="mt-10">
-Answer is in this quote from the previous slide:
-
-<blockquote class="my-8">
-
-I clicked the button, deployed the OSS version and hooked up the imgproxy.rb ruby gem in my app <span v-mark.orange="{ at: 2 }" class="font-bold">in under an hour</span>.
-
-</blockquote>
-
-It wouldn't be possible without a ready to use Ruby gem!
-</v-click>
-
-<style>
-  blockquote p {
-    font-size: 1.5rem;
-    line-height: 1.5em;
-  }
-  blockquote p + p {
-    margin-top: 1em;
-  }
-</style>
 
 ---
 class: text-sm
@@ -663,6 +697,67 @@ And you can migrate the whole application to imgproxy in an hour!
 
 <qr-code url="https://github.com/imgproxy/imgproxy-rails" caption="imgproxy-rails gem" class="absolute w-36 bottom-48px right-48px" />
 
+
+---
+layout: quote
+---
+
+## Let the community speak
+
+<blockquote class="my-8">
+
+I clicked the button, deployed the OSS version and hooked up **the imgproxy.rb ruby gem** in my app in under an hour.
+
+Within a few weeks, we had switched over all of our upload, template, and graphic previews to Imgproxy…
+
+Doing so resulted in the **removal of hundreds of lines of code** while also **enabling new functionality**.
+
+</blockquote>
+
+— John Nunemaker: https://www.johnnunemaker.com/imgproxy/
+
+<qr-code url="https://www.johnnunemaker.com/imgproxy/" caption="Imgproxy is Amazing" class="w-36 absolute bottom-48px right-48px" />
+
+<style>
+  blockquote p {
+    font-size: 1.5rem;
+    line-height: 1.5em;
+  }
+  blockquote p + p {
+    margin-top: 1em;
+  }
+</style>
+
+---
+layout: section
+class: text-lg
+---
+
+# Why to “keep it Ruby?”
+
+Why to spend time and effort to provide official Ruby SDK?
+
+<v-click class="mt-10">
+Answer is in this quote from the previous slide:
+
+<blockquote class="my-8">
+
+I clicked the button, deployed the OSS version and hooked up the imgproxy.rb ruby gem in my app <span v-mark.orange="{ at: 2 }" class="font-bold">in under an hour</span>.
+
+</blockquote>
+
+It wouldn't be possible without a ready to use Ruby gem!
+</v-click>
+
+<style>
+  blockquote p {
+    font-size: 1.5rem;
+    line-height: 1.5em;
+  }
+  blockquote p + p {
+    margin-top: 1em;
+  }
+</style>
 
 ---
 layout: center
