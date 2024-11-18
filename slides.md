@@ -35,6 +35,10 @@ progressBarStartSlide: 2
   }
 </style>
 
+<!--
+Hello world! Or: Hello RubyWorld! Today, we’re diving into why your product needs a Ruby SDK and why Ruby remains a powerful choice for so many of us in 2024 and beyond.
+-->
+
 ---
 layout: two-cols-header
 ---
@@ -60,7 +64,7 @@ layout: two-cols-header
 - Ruby enthusiast
 
 <!--
-Hello, world! Or: Hello, RubyWorld! I’m Sampo Kuokkanen from Evil Martians, and I’m thrilled to be here today with Andrey Novikov. Today, we’re diving into why your product needs a Ruby SDK and why Ruby remains a powerful choice for so many of us in 2024 and beyond. At Evil Martians, we’re passionate about open-source projects that genuinely make a difference, and we’ll show you how they can make your life much easier! And today's example could even save you money.
+I’m Sampo Kuokkanen from Evil Martians, and I’m thrilled to be here today with colleague, Andrey Novikov.
 -->
 
 ---
@@ -73,8 +77,8 @@ Hello, world! Or: Hello, RubyWorld! I’m Sampo Kuokkanen from Evil Martians, an
 <p class="text-2xl text-center"><a href="https://evilmartians.com">evilmartians.com</a></p>
 
 <!--
-Evil Martians transform growth-stage startups into unicorns, build developer tools, and create open source products.
-Evil Martians is located in New York, United States of America.
+Evil Martians is a consultancy that transform growth-stage startups into unicorns, build developer tools, and create open source products.
+Evil Martians headquarters are in New York, United States.
 -->
 
 ---
@@ -164,11 +168,9 @@ Evil Martians is also in Japan! We have an office in Edobori, Osaka! The Japanes
 </style>
 
 <!--
-One thing that we truly love is Open Source. We love to use it, and we also love to give back enhancements to the community. We eager to share results of our work as a ruby gem or npm package, it will help us in the first place to re-use our own solutions, and we can help others to solve their problems and often we will get feedback or patches back. It is a win-win.
+At Evil Martians, we’re passionate about open-source. We love to use it, and we also love to give back enhancements to the community. We eager to share results of our work as a ruby gem or npm package, it will help us in the first place to re-use our own solutions, and we can help others to solve their problems and often we will get feedback or patches back. It is a win-win.
 
-And for many years we've created literally over a hundred of open source products, big and small, famous and not so. Very probably your application already depends on a few martian Ruby gems, so check out your Gemfile and count how many of them you have.
-
-Some open source products have even grown into commercial products, like anycable or imgproxy, still staying open source at the time. [click] And today we will talk about imgproxy.
+Some open source products have even grown into commercial products, like anycable or imgproxy, still staying open source at the time. [click] And today we will be using imgproxy as an example.
 -->
 
 ---
@@ -229,12 +231,20 @@ class: text-5xl
 
 We 💓 Ruby
 
+<!--
+Ruby is a beautiful language that allows to write very concise code and develop fast. No surprise it is our language of choice for decades now. We love it.
+-->
+
 ---
 layout: center
 class: text-3xl
 ---
 
 But sometimes it is just not right tool for the job
+
+<!--
+But at the same time many of our open source products are written in Go. Performance, memory usage, and concurrency are things that weren't Ruby strengths for the long time. Sometimes it is better to make a trade-off.
+-->
 
 ---
 class: annotated-list
@@ -259,10 +269,9 @@ We need to store them and show in various places, of course! And for this we nee
 </v-clicks>
 
 <!--
+As an example of a problem that it is better to “offload” let's take a look at handling of images uploaded by users. And many webapps have to get photos from users. And, of course, not only one need to receive images, but also then display them back in various forms back to users. And even now in year 2024 it is bad idea to let browsers download original images just to show them in some list downsized to a size of a thumb.
 
-And, of course, not only one need to receive images, but also then display them back in various forms back to users. And even now in year 2023 it is bad idea to let browsers download original images just to show them in some list downsized to a size of a thumb.
-
-So one need to resize them, crop if their aspect ratio differs from desired, add watermarks, strip sensitive metadata, and maybe even apply some filters.
+So one need to [click] resize them, [click] crop if their aspect ratio differs from desired, [click] add watermarks, [click] strip sensitive metadata (gps coordinates from photo with loads of money), [click] et cetera, et cetera.
 -->
 
 ---
@@ -324,9 +333,7 @@ sequenceDiagram
 <div v-click="3" class="absolute bottom-260px right-120px rotate-10 text-xs p-1 bg-rose-900/25 border border-rose-500 text-center">Unpredictable<br/>latency<br/>here</div>
 
 <!--
-
-And there is kind of traditional way of doing it: upload image to the server, store it somewhere, generate all required thumbnails, store them somewhere, and then serve them to the user. I have implemented it once or twice long long time ago. And, believe me, it is not so easy as it sounds.
-
+And there is kind of traditional way of doing it: upload image to the server, store it somewhere, generate all required thumbnails, store them somewhere, and then serve them to the user. I have implemented it once or twice long long time ago. And, believe me, it is not so easy as it sounds and have many places where things can go wrong.
 -->
 
 ---
@@ -361,13 +368,13 @@ class: annotated-list
 </v-clicks>
 
 <!--
-But still, this approach has plenty of limitations and drawbacks:
+For example:
 
- - that latency about which we just talked,
- - necessity to reprocess all images when you need to add new thumbnail size **prior** to displaying (you don't know which are going to be displayed, after all) and it requires a lot of time and ultimately slows you down.
- - Cleaning up old unneeded thumbnails is also cumbersome.
- - And oh yes, you need to install imagemagick or libvips to your servers and containers, and it is not so easy as it sounds.
- - And it is also security risk, as you need to process images on your servers, so any script kid can do a Denial of Service by uploading a PNG bomb and eating all the memory on your application server.
+ - [click] preparing images takes time, background jobs can queue, and that means latency for that you need to be prepared. For example to show some placeholder image while thumbnails aren't ready…
+ - [click] necessity to reprocess all images when you need to add new thumbnail size **prior** to displaying (you don't know which are going to be displayed, after all) and it requires a lot of time and ultimately slows you down.
+ - [click] Cleaning up old unneeded thumbnails is also cumbersome.
+ - [click] And oh yes, you need to install imagemagick or libvips to your servers and containers, and it is not so easy as it sounds.
+ - [click] And it is also security risk, as you need to process images on your servers, so any script kid can do a Denial of Service by uploading a PNG bomb and eating all the memory on your application server.
 -->
 
 ---
@@ -459,6 +466,19 @@ class: annotated-list
 
 </v-clicks>
 
+<!--
+All pains are gone them:
+
+[click] It is much simpler. Throw away all the code made for image processing, all background jobs, and server provision recipes. Deploy a microservice from a single docker image instead.
+
+[click] Latency is gone. As imgproxy and others are dedicated and highly performant servers to process images, you use them in sync. Craft URL, pass it to browser, then browser just makes a request and gets its thumbnail mostly instantly. For example imgproxy (thanks to libvips) is so performant, it can process dozens images per second on a basic VPS or Heroku dyno. And if it is not enough you can provision more servers behind a load balancer.
+
+[click] You want new thumbnail variant? Just construct new URL, request it, let CDN to cache it, done! No need to reprocess all images, no need to wait for background jobs to finish.
+
+[click] Removing old variants? Know what? You just don't! Let CDN caches to expire. Care only for originals.
+
+[click] Security is also isn't your headache anymore. Even if some malicious code will be executed, it will find itself in empty Docker container without anything to do in it.
+-->
 
 ---
 class: text-2xl annotated-list
@@ -487,6 +507,9 @@ class: text-5xl
 
 Is there a gem?
 
+<!--
+What is the first thing a Ruby developer looks into when choosing which service to integrate with? A Ruby gem for this!
+-->
 
 ---
 layout: image-right
@@ -511,9 +534,8 @@ image: /images/imgproxy-website.png
 </style>
 
 <!--
-Now, to understand the technical points Andrey is going to tell you about, let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now its own company, Foxes With Matches Inc. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes.
+Let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now an independent start-up. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes, it uses modern libvips library with specifically crafted processing pipeline to optimize for maximum throughput and minimal memory consumption. And, most important, as it was initially made in a Ruby-centric company for a Ruby on Rails project, it has exceptional Ruby client library from the day one.
 -->
-
 
 ---
 layout: default
@@ -581,7 +603,7 @@ https://mars.nasa.gov/system/downloadable_items/40368_PIA22228.jpg
 
 Result URL to get 300×150 thumbnail for Retina displays, smart cropped, and saturated, with watermark in right bottom corner:
 
-```txt {1-6|2|3-4|6|all}{class:'!children:text-sm'}
+```txt {all|6|3-4|2|all}{class:'!children:text-sm'}
 https://demo.imgproxy.net/
 doqHNTjtFpozyphRzlQTHyBloSoYS13lLuMDozTnxqA/
 rs:fill:300:150:1/dpr:2/g:ce/sa:1.4/
@@ -593,15 +615,23 @@ https:%2F%2Fmars.nasa.gov%2Fsystem%2Fdownloadable_items%2F40368_PIA22228.jpg
 See https://docs.imgproxy.net/generating_the_url
 
 
-<Arrow v-click="1" x1="780" y1="320" x2="500" y2="330" />
-<div v-click="1" class="absolute top-310px right-60px">Digital signature</div>
+<Arrow v-click="3" x1="780" y1="320" x2="500" y2="330" />
+<div v-click="3" class="absolute top-310px right-60px">Digital signature</div>
 
 <Arrow v-click="2" x1="755" y1="345" x2="475" y2="355" />
 <div v-click="2" class="absolute top-335px right-60px">Processing options</div>
 
-<Arrow v-click="3" x1="760" y1="370" x2="450" y2="400" />
-<div v-click="3" class="absolute top-360px right-60px">Original image URL</div>
+<Arrow v-click="1" x1="760" y1="370" x2="450" y2="400" />
+<div v-click="1" class="absolute top-360px right-60px">Original image URL</div>
 
+<!--
+From the technical point of view, let's take a look at the main part of interaction with a image processing service: generating an URL to an image.
+
+[click] First of all, we take URL to the original image, URL-encode it, and place at the end of the result URL.
+[click] Then we add processing options: what size it should be, how it should be cropped, what filters to apply, et cetera
+[click] Finally, we calculate a digital signature of options and original URL using the secret that known only to application and imgproxy, so no one can use our image processing for their needs
+[click] Done!
+-->
 
 ---
 transition: slide-left
@@ -634,6 +664,12 @@ end
 url = generate_url("http://example.com/image.jpg", 300, 400)
 ```
 
+<!--
+Crafting this URL isn't hard. It is pretty simple. So simple, in fact, it can fit one slide.
+
+There will be a temptation to skip the whole packaging step and just provide this code as an example: copy and paste into your project and call it a day.
+-->
+
 ---
 transition: slide-left
 ---
@@ -664,6 +700,10 @@ end
 ```
 
 <qr-code url="https://github.com/imgproxy/imgproxy.rb" caption="imgproxy.rb gem" class="w-36 absolute bottom-48px right-60px" />
+
+<!--
+But client library doesn't only provide an url helper. It also provides convenient  way to configure itself. Client library can be updated, bringing bug fixes and new features. Even if it feels small, there is a value.
+-->
 
 ---
 layout: default
@@ -697,6 +737,9 @@ And you can migrate the whole application to imgproxy in an hour!
 
 <qr-code url="https://github.com/imgproxy/imgproxy-rails" caption="imgproxy-rails gem" class="absolute w-36 bottom-48px right-48px" />
 
+<!--
+And then you can integrate with frameworks and then, if application is using framework built-in URL generation, you can hook there, and make migration to your product almost instant. Plug in, configure, and it just works. Feels like magic!
+-->
 
 ---
 layout: quote
@@ -727,6 +770,10 @@ Doing so resulted in the **removal of hundreds of lines of code** while also **e
     margin-top: 1em;
   }
 </style>
+
+<!--
+And users will appreciate all this: speed, simplicity, convenience of the client API. It won't go unnoticed. And if other services are ordinary ones, yours in comparison will be so good, people will want to scream of joy.
+-->
 
 ---
 layout: section
@@ -759,6 +806,10 @@ It wouldn't be possible without a ready to use Ruby gem!
   }
 </style>
 
+<!--
+So the answer to the question is… [click] convenience and [click] speed. If it is so easy to integrate into existing app, it means that you almost certainly will get a new customer.
+-->
+
 ---
 layout: center
 class: text-4xl text-center
@@ -769,6 +820,10 @@ Keeping your product Ruby-friendly
 ={class="text-8xl"}
 
 more customers, happier customers
+
+<!--
+A new happy customer of your product! And that's great.
+-->
 
 ---
 
@@ -821,5 +876,7 @@ Our awesome blog: [evilmartians.com/chronicles](https://evilmartians.com/chronic
 </style>
 
 <!--
-That's it! Please check out Evil Martians blog, we have a lot of interesting blog posts about Ruby, Rails, frontend, design and other things.
+Keep your non-Ruby products to be Ruby-friendly, and we will be happy to help you with that!
+
+Please check out Evil Martians blog, we have a lot of interesting blog posts about Ruby, Rails, frontend, design, open-source and other things.
 -->
