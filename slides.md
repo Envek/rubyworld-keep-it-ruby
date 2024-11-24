@@ -94,7 +94,7 @@ Evil Martians headquarters are in New York, United States.
 <div class="absolute bottom-64px right-128px rotate-350 text-5xl">🏯</div>
 
 <!--
-Evil Martians is also in Japan! We have an office in Edobori, Osaka! The Japanese office is also growing, we are soon going to have our sixth member join us. Be sure to contact us if you happen to visit Osaka and are interested in Mars! Unfortunately, we do not yet have an office in Shimane, but maybe some day.
+Evil Martians is also in Japan! We have an office in Osaka! Be sure to contact us if you happen to visit Osaka and are interested in Mars! Unfortunately, we do not yet have an office in Shimane, but maybe some day.
 -->
 
 ---
@@ -168,9 +168,9 @@ Evil Martians is also in Japan! We have an office in Edobori, Osaka! The Japanes
 </style>
 
 <!--
-At Evil Martians, we’re passionate about open-source. We love to use it, and we also love to give back enhancements to the community. We eager to share results of our work as a ruby gem or npm package, it will help us in the first place to re-use our own solutions, and we can help others to solve their problems and often we will get feedback or patches back. It is a win-win.
+At Evil Martians, we’re passionate about open-source. We love to use it, and we also love to give back enhancements to the community. It is a win-win.
 
-Some open source products have even grown into commercial products, like anycable or imgproxy, still staying open source at the time. [click] And today we will be using imgproxy as an example.
+Some open source projects have even grown into commercial products, like anycable or imgproxy, still staying open source at their core. [click] And today we will be using imgproxy as an example.
 -->
 
 ---
@@ -269,7 +269,7 @@ We need to store them and show in various places, of course! And for this we nee
 </v-clicks>
 
 <!--
-As an example of a problem that it is better to “offload” let's take a look at handling of images uploaded by users. And many webapps have to get photos from users. And, of course, not only one need to receive images, but also then display them back in various forms back to users. And even now in year 2024 it is bad idea to let browsers download original images just to show them in some list downsized to a size of a thumb.
+As an example of a problem that it is better to “offload” let's take a look at handling of images uploaded by users. Many webapps have to get pictures from users. And, of course, not only one need to receive images, but also then display them back in various forms back to users. And even now in year 2024 it is a bad idea to let browsers download original images just to show them in some list downsized to a size of a thumb.
 
 So one need to [click] resize them, [click] crop if their aspect ratio differs from desired, [click] add watermarks, [click] strip sensitive metadata (gps coordinates from photo with loads of money), [click] et cetera, et cetera.
 -->
@@ -333,7 +333,13 @@ sequenceDiagram
 <div v-click="3" class="absolute bottom-260px right-120px rotate-10 text-xs p-1 bg-rose-900/25 border border-rose-500 text-center">Unpredictable<br/>latency<br/>here</div>
 
 <!--
-And there is kind of traditional way of doing it: upload image to the server, store it somewhere, generate all required thumbnails, store them somewhere, and then serve them to the user. I have implemented it once or twice long long time ago. And, believe me, it is not so easy as it sounds and have many places where things can go wrong.
+And there is kind of traditional way of doing it:
+
+ - [click] upload image to the server,
+ - [click] store it,
+ - [click] generate all required thumbnails,
+ - [click] store them also,
+ - [click] and finally serve them to the user.
 -->
 
 ---
@@ -368,13 +374,13 @@ class: annotated-list
 </v-clicks>
 
 <!--
-For example:
+And this way is long and full of dangers:
 
- - [click] preparing images takes time, background jobs can queue, and that means latency for that you need to be prepared. For example to show some placeholder image while thumbnails aren't ready…
- - [click] necessity to reprocess all images when you need to add new thumbnail size **prior** to displaying (you don't know which are going to be displayed, after all) and it requires a lot of time and ultimately slows you down.
- - [click] Cleaning up old unneeded thumbnails is also cumbersome.
- - [click] And oh yes, you need to install imagemagick or libvips to your servers and containers, and it is not so easy as it sounds.
- - [click] And it is also security risk, as you need to process images on your servers, so any script kid can do a Denial of Service by uploading a PNG bomb and eating all the memory on your application server.
+ - [click] preparing all variants takes time, background jobs can queue, and that means latency.
+ - [click] adding new means reprocessing all images **prior** to displaying
+ - [click] does anyone ever clean up old unneeded variants?
+ - [click] And oh yes, you need to install imagemagick or libvips to your servers and containers, too.
+ - [click] And it is also security risk, as you need to process images on your servers, so any script kid can do a Denial of Service by uploading a PNG bomb to your application server.
 -->
 
 ---
@@ -431,9 +437,9 @@ sequenceDiagram
 ```
 
 <!--
-And there are such services, they are called image processing servers. There are cloud native ones, like Cloudinary, and there are self-hosted ones, like imaginary and imgproxy. And all they do is taking away burden of image processing from you and your application servers. And this is great!
+And there are such services, they are called image processing servers. All they do is taking away burden of image processing from you and your application servers.
 
-As you can see from much smaller sequence diagram, application server doesn't have to even pass images through itself, all it needs to know is image URL which can be used to craft or construct URL with instructions for image processing service and it will do everything else by itself.
+As you can see, application server doesn't have to even pass images through itself, all it needs to know is a source image URL.
 -->
 
 ---
@@ -471,13 +477,13 @@ All pains are gone them:
 
 [click] It is much simpler. Throw away all the code made for image processing, all background jobs, and server provision recipes. Deploy a microservice from a single docker image instead.
 
-[click] Latency is gone. As imgproxy and others are dedicated and highly performant servers to process images, you use them in sync. Craft URL, pass it to browser, then browser just makes a request and gets its thumbnail mostly instantly. For example imgproxy (thanks to libvips) is so performant, it can process dozens images per second on a basic VPS or Heroku dyno. And if it is not enough you can provision more servers behind a load balancer.
+[click] Latency is gone. No more backed up queues/ Craft URL when you need it, browser makes a request and gets its thumbnail mostly instantly.
 
-[click] You want new thumbnail variant? Just construct new URL, request it, let CDN to cache it, done! No need to reprocess all images, no need to wait for background jobs to finish.
+[click] You want new thumbnail variant? Just construct new URL, request it, let CDN to cache it, done!
 
-[click] Removing old variants? Know what? You just don't! Let CDN caches to expire. Care only for originals.
+[click] Removing old variants? You just don't! Let CDN caches to expire. Care only for originals.
 
-[click] Security is also isn't your headache anymore. Even if some malicious code will be executed, it will find itself in empty Docker container without anything to do in it.
+[click] Security is also isn't your headache anymore. Even if some malicious code will be executed, it will find itself in an empty Docker container.
 -->
 
 ---
@@ -499,6 +505,10 @@ class: text-2xl annotated-list
    What are you looking first for when choosing a new dependency?
 
 </v-clicks>
+
+<!--
+But which one to choose for an application written in Ruby? Should it be one written in Ruby? But if it is a dedicated service, does it matter? Maybe it is better to choose the one that is the most easy to use from a Ruby app?
+-->
 
 ---
 layout: center
@@ -536,56 +546,6 @@ image: /images/imgproxy-website.png
 <!--
 Let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now an independent start-up. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes, it uses modern libvips library with specifically crafted processing pipeline to optimize for maximum throughput and minimal memory consumption. And, most important, as it was initially made in a Ruby-centric company for a Ruby on Rails project, it has exceptional Ruby client library from the day one.
 -->
-
----
-layout: default
----
-
-# Traditional image processing vs imgproxy
-
-<div class="grid grid-cols-2 gap-4">
-
-<div>
-<h3>“Classic” approach</h3>
-
-```ruby {all}{class:'!children:text-sm'}
-# Heavy background jobs
-class ProcessImageJob < ApplicationJob
-  def perform(image)
-    image
-      .variant(resize: "800x600")
-      .processed
-  end
-end
-```
-
-- Overall complexity
-- Server storage needed
-- Background processing (latency!)
-- Higher infrastructure costs
-</div>
-
-<div>
-<h3>imgproxy approach</h3>
-
-```erb {all}{class:'!children:text-sm'}
-<%# On-the-fly processing %>
-<img src="<%=
-  Imgproxy.url_for(
-    'http://images.example.com/images/image.jpg',
-    width: 500,
-    height: 400,
-    resizing_type: :fill
- )
-%>">
-```
-
-- No storage needed
-- Instant processing
-- CDN-friendly
-</div>
-
-</div>
 
 ---
 class: text-sm
@@ -629,8 +589,8 @@ From the technical point of view, let's take a look at the main part of interact
 
 [click] First of all, we take URL to the original image, URL-encode it, and place at the end of the result URL.
 [click] Then we add processing options: what size it should be, how it should be cropped, what filters to apply, et cetera
-[click] Finally, we calculate a digital signature of options and original URL using the secret that known only to application and imgproxy, so no one can use our image processing for their needs
-[click] Done!
+[click] Finally, we calculate a digital signature of both the options and the original URL, so no one can use our image processing for their needs
+[click] And that's it!
 -->
 
 ---
