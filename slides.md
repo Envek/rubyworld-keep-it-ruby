@@ -76,7 +76,9 @@ class: two-columns grid grid-cols-[60%_40%] gap-4
 </style>
 
 <!--
-I’m Sampo Kuokkanen from Evil Martians, and I’m thrilled to be here today with colleague, Andrey Novikov.
+I’m Sampo Kuokkanen from Evil Martians, and I’m thrilled to be here today with colleague, and friend Andrey Novikov.
+
+Thanks to Ruby we have been able to afford not Lambos, but a kei car and a 50cc scooter.
 -->
 
 ---
@@ -106,7 +108,7 @@ Evil Martians headquarters are in New York, United States.
 <div class="absolute bottom-64px right-128px rotate-350 text-5xl">🏯</div>
 
 <!--
-Evil Martians is also in Japan! We have an office in Osaka! Be sure to contact us if you happen to visit Osaka and are interested in Mars! Unfortunately, we do not yet have an office in Shimane, but maybe some day.
+Evil Martians is also in Japan! We have an office in Osaka! Be sure to contact us if you happen to visit Osaka and are interested in Mars! There are many of us, all year round! So reach out, we are always happy to connect and talk Ruby.
 -->
 
 ---
@@ -182,7 +184,7 @@ Evil Martians is also in Japan! We have an office in Osaka! Be sure to contact u
 <!--
 At Evil Martians, we’re passionate about open-source. We love to use it, and we also love to give back enhancements to the community. It is a win-win.
 
-Some open source projects have even grown into commercial products, like anycable or imgproxy, still staying open source at their core. [click] And today we will be using imgproxy as an example.
+Some open source projects have even grown into commercial products, like anycable or imgproxy, still staying open source at their core. [click] And today we will be using imgproxy as an example of a non-Ruby open source product that has a robust Ruby SDK.
 -->
 
 ---
@@ -405,7 +407,7 @@ class: text-center
 What if we could _just_ generate thumbnails on the fly?
 
 <!--
-But to be honest, even if we got used to this approach, it is not the only one. What if we could just generate thumbnails on the fly?
+But to be honest, even if we got used to this approach, it is not the only one. Do things have to be this way? NO!!! What if we could just generate thumbnails on the fly?
 -->
 
 ---
@@ -519,7 +521,7 @@ class: text-2xl annotated-list
 </v-clicks>
 
 <!--
-But which one to choose for an application written in Ruby? Should it be one written in Ruby? But if it is a dedicated service, does it matter? Maybe it is better to choose the one that is the most easy to use from a Ruby app?
+But which one to choose for an application written in Ruby? Should it be one written in the same language? But if it is a dedicated service, does it matter? Maybe it is better to choose the one that is the most easy to use from a Ruby app?
 -->
 
 ---
@@ -530,7 +532,7 @@ class: text-5xl
 Is there a gem?
 
 <!--
-What is the first thing a Ruby developer looks into when choosing which service to integrate with? A Ruby gem for this!
+What is the first thing a Ruby developer looks into when choosing which service to integrate with? We all know the answer: A Ruby gem!
 -->
 
 ---
@@ -608,6 +610,7 @@ See https://docs.imgproxy.net/generating_the_url
 <!--
 From the technical point of view, let's take a look at the main part of interaction with a image processing service: generating an URL to an image.
 
+This is an incredibly simple process:
 [click] First of all, we take address of the original image, URL-encode it, and place at the end of the result URL.
 [click] Then we add processing options: what size it should be, how it should be cropped, what filters to apply, et cetera
 [click] Finally, we calculate a digital signature of both the options and the original URL, so no one can use our image processing for their needs for free.
@@ -788,7 +791,9 @@ It wouldn't be possible without a ready to use Ruby gem!
 </style>
 
 <!--
-So the answer to the question is… [click] convenience and [click] speed. If it is so easy to integrate into existing app, it means that you almost certainly will get a new customer.
+So the answer to the question is… [click] convenience and [click] speed. If it is so easy to integrate the product into existing apps, it means that you almost certainly will get new customers.
+
+We'd like to reiterate that Ruby can be integrated with anything!
 -->
 
 ---
