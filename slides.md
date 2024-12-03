@@ -608,9 +608,9 @@ See https://docs.imgproxy.net/generating_the_url
 <!--
 From the technical point of view, let's take a look at the main part of interaction with a image processing service: generating an URL to an image.
 
-[click] First of all, we take URL to the original image, URL-encode it, and place at the end of the result URL.
+[click] First of all, we take address of the original image, URL-encode it, and place at the end of the result URL.
 [click] Then we add processing options: what size it should be, how it should be cropped, what filters to apply, et cetera
-[click] Finally, we calculate a digital signature of both the options and the original URL, so no one can use our image processing for their needs
+[click] Finally, we calculate a digital signature of both the options and the original URL, so no one can use our image processing for their needs for free.
 [click] And that's it!
 -->
 
@@ -648,7 +648,7 @@ url = generate_url("http://example.com/image.jpg", 300, 400)
 <!--
 Crafting this URL isn't hard. It is pretty simple. So simple, in fact, it can fit one slide.
 
-There will be a temptation to skip the whole packaging step and just provide this code as an example: copy and paste into your project and call it a day.
+And for you, as author of the product, there will be a temptation to skip the whole packaging step and just provide this code as an example in your README: dear user, copy and paste this into your project and call it a day.
 -->
 
 ---
@@ -659,7 +659,7 @@ transition: slide-left
 
 But always better to use a battle-tested library that will hide all gory details
 
-```ruby {all|none|all}{at:1,class:'!children:text-sm'}
+```ruby {all}{at:1,class:'!children:text-sm'}
 require 'imgproxy'
 
 Imgproxy.configure do |config|
@@ -670,7 +670,7 @@ Imgproxy.configure do |config|
   config.salt = '520f986b998545b4...'
 end
 ```
-```erb {none|all|all}{at:1,class:'!children:text-sm'}
+```erb {all}{at:1,class:'!children:text-sm'}
 <%# show.erb.html %>
 <%= image_tag Imgproxy.url_for(
   "http://images.example.com/images/image.jpg",
@@ -683,7 +683,7 @@ end
 <qr-code url="https://github.com/imgproxy/imgproxy.rb" caption="imgproxy.rb gem" class="w-36 absolute bottom-48px right-60px" />
 
 <!--
-But client library doesn't only provide an url helper. It also provides convenient  way to configure itself. Client library can be updated, bringing bug fixes and new features. Even if it feels small, there is a value.
+But client library doesn't only provide an url helper. It also provides convenience. Hide implementation details from the user, provide an interface to configure itself. Client library can be updated, bringing bug fixes and new features. Even if it feels small, there is always a value into providing a conventional method of distribution to your users.
 -->
 
 ---
@@ -719,7 +719,7 @@ And you can migrate the whole application to imgproxy in an hour!
 <qr-code url="https://github.com/imgproxy/imgproxy-rails" caption="imgproxy-rails gem" class="absolute w-36 bottom-48px right-48px" />
 
 <!--
-And then you can integrate with frameworks and then, if application is using framework built-in URL generation, you can hook there, and make migration to your product almost instant. Plug in, configure, and it just works. Feels like magic!
+And then you can go on a higher level: integrate with frameworks and then, if application is using framework built-in image handling, like ActiveStorage in Rails, you can hook into its URL generation, and this will allow to make migration to your product almost instant. Plug in, configure, and it just works. Feels like magic!
 -->
 
 ---
