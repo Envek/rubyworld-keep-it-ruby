@@ -523,11 +523,17 @@ What is the first thing a Ruby developer looks into when choosing which service 
 
 ---
 layout: image-right
-class: text-sm annotated-list
+class: text-sm annotated-list relative
 image: /images/imgproxy-website.png
 ---
 
 # Introducing imgproxy
+
+<div class="absolute right-0 top-10">
+<img alt="Imgproxy" src="/images/martian-oss/imgproxy-light.svg" class="object-contain h-32 mx-auto block dark:hidden" />
+<img alt="Imgproxy" src="/images/martian-oss/imgproxy-dark.svg" class="object-contain h-32 mx-auto hidden dark:block" />
+</div>
+
 
 - Open source image processing server
 - Written in Go and C for performance
@@ -535,16 +541,19 @@ image: /images/imgproxy-website.png
 - Dockerized and easy to deploy
 - Most Ruby-friendly solution[^1]
 - Started at Evil Martians
+- Used by companies big and small:<br>Bluesky, dev.to, Photobucket, eBay, …<br><a href="https://bsky.app/profile/inazarova.bsky.social/post/3lc3745dvg22q"><logos-bluesky class="w-16 h-16" /></a>
 
 
 [^1]: There is a gem! Two of them!
 
 <style>
-  .footnotes { font-size: 0.8em; margin-top: 3em; }
+  a { border-bottom: none !important; }
+  .footnotes-sep { margin-top: 3em; margin-bottom: 1em; }
+  .footnotes { font-size: 0.8em; }
 </style>
 
 <!--
-Let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now an independent start-up. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes, it uses modern libvips library with specifically crafted processing pipeline to optimize for maximum throughput and minimal memory consumption. And, most important, as it was initially made in a Ruby-centric company for a Ruby on Rails project, it has exceptional Ruby client library from the day one.
+Let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now an independent start-up. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes, it uses modern libvips library with specifically crafted processing pipeline to optimize for maximum throughput and minimal memory consumption. It is pretty popular already, used by many companies, big and small, established and new, and we recently learned that Bluesky social app also uses imgproxy. And, most important, as it was initially made in a Ruby-centric company for a Ruby on Rails project, it has exceptional Ruby client library from the day one.
 -->
 
 ---
@@ -798,6 +807,7 @@ A new happy customer of your product! And that's great.
 
 - <logos-github-icon class="dark:invert" /> [@imgproxy](https://github.com/imgproxy/)
 - <logos-twitter /> [@imgproxy_net](https://twitter.com/imgproxy_net)
+- <logos-bluesky /> [@imgproxy.net](https://bsky.app/profile/imgproxy.net)
 - <logos-linkedin-icon /> [@imgproxy](https://www.linkedin.com/company/imgproxy)
 
 <div>
@@ -812,8 +822,8 @@ A new happy customer of your product! And that's great.
 
 - <logos-github-icon class="dark:invert" /> [@evilmartians](https://github.com/evilmartians?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 - <logos-twitter /> [@evilmartians](https://twitter.com/evilmartians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
+- <logos-bluesky /> [@evilmartians.com](https://bsky.app/profile/evilmartians.com?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 - <logos-linkedin-icon /> [@evil-martians](https://www.linkedin.com/company/evil-martians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
-- <logos-instagram-icon class="dark:invert" /> [@evil.martians](https://www.instagram.com/evil.martians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 </div>
 
 <div>
