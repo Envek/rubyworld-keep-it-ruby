@@ -271,7 +271,7 @@ We need to store them and show in various places, of course! And for this we nee
 <!--
 As an example of a problem that it is better to “offload” let's take a look at handling of images uploaded by users. Many webapps have to get pictures from users. And, of course, not only one need to receive images, but also then display them back in various forms back to users. And even now in year 2024 it is a bad idea to let browsers download original images just to show them in some list downsized to a size of a thumb.
 
-So one need to [click] resize them, [click] crop if their aspect ratio differs from desired, [click] add watermarks, [click] strip sensitive metadata (gps coordinates from photo with loads of money), [click] et cetera, et cetera.
+So one need to [click] resize them, [click] crop if their aspect ratio differs from desired, [click] add watermarks, [click] strip sensitive metadata (like gps coordinates), [click] et cetera, et cetera.
 -->
 
 ---
@@ -377,7 +377,7 @@ class: annotated-list
 And this way is long and full of dangers:
 
  - [click] preparing all variants takes time, background jobs can queue, and that means latency.
- - [click] adding new means reprocessing all images **prior** to displaying
+ - [click] adding new images means having to process them **prior** to displaying
  - [click] does anyone ever clean up old unneeded variants?
  - [click] And oh yes, you need to install imagemagick or libvips to your servers and containers, too.
  - [click] And it is also security risk, as you need to process images on your servers, so any script kid can do a Denial of Service by uploading a PNG bomb to your application server.
