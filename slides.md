@@ -40,28 +40,40 @@ Hello world! Or: Hello RubyWorld! Today, we’re diving into why your product ne
 -->
 
 ---
-layout: two-cols-header
+title: Speakers
+layout: image
+image: /images/speakers.jpg
+class: two-columns grid grid-cols-[60%_40%] gap-4
 ---
 
-# Speakers
+<div class="col-left">
 
-::left::
+## Sampo Kuokkanen
 
-### Andrey Novikov
-<img src="https://github.com/Envek.png" class="rounded-full w-32 mb-4">
-
-- imgproxy early adopter
-- Ruby & Go developer at Evil Martians
-- Open source enthusiast
-
-::right::
-
-### Sampo Kuokkanen
-<img src="https://github.com/sampokuokkanen.png" class="rounded-full w-32 mb-4">
-
-- A fan of imgproxy
 - Head of Evil Martians Japan
 - Ruby enthusiast
+- A fan of imgproxy
+
+</div>
+<div class="col-right">
+
+## Andrey Novikov
+
+- Ruby developer at Evil Martians
+- Open source enthusiast
+- imgproxy early adopter
+
+</div>
+
+<style>
+  .slidev-layout {
+    text-shadow: 0.2em 0 0.25em black, -0.2em 0 0.25em black, 0 0.2em 0.25em black, 0 -0.2em 0.25em black;
+  }
+
+  h2 { font-size: 2em; }
+
+  ul { margin-top: 19em; }
+</style>
 
 <!--
 I’m Sampo Kuokkanen from Evil Martians, and I’m thrilled to be here today with colleague, Andrey Novikov.
