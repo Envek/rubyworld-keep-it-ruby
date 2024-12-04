@@ -1,0 +1,4 @@
+/* See https://github.com/slidevjs/slidev/issues/1510 */
+.slidev-layout.two-cols-header {
+    grid-template-rows: auto 1fr auto !important;
+}
