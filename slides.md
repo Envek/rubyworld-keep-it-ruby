@@ -521,7 +521,10 @@ class: text-2xl annotated-list
 </v-clicks>
 
 <!--
-But which one to choose for an application written in Ruby? Should it be one written in the same language? But if it is a dedicated service, does it matter? Maybe it is better to choose the one that is the most easy to use from a Ruby app?
+But which one to choose for a Ruby app?
+[click]
+Should it be one written in the same language? But if it is a dedicated service, does it matter?
+[click]Maybe it is better to choose the one that is the most easy to use from a Ruby app?
 -->
 
 ---
@@ -529,10 +532,12 @@ layout: center
 class: text-5xl
 ---
 
-Is there a gem?
+# Is there a gem?
+
+of course there is!{.text-xl}
 
 <!--
-What is the first thing a Ruby developer looks into when choosing which service to integrate with? We all know the answer: A Ruby gem!
+What is the first thing a Ruby developer looks into when choosing which service to integrate with? We all know the answer: A Ruby gem to add into Gemfile!
 -->
 
 ---
@@ -567,7 +572,19 @@ image: /images/imgproxy-website.png
 </style>
 
 <!--
-Let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now an independent start-up. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes, it uses modern libvips library with specifically crafted processing pipeline to optimize for maximum throughput and minimal memory consumption. It is pretty popular already, used by many companies, big and small, established and new, and we recently learned that Bluesky social app also uses imgproxy. And, most important, as it was initially made in a Ruby-centric company for a Ruby on Rails project, it has exceptional Ruby client library from the day one.
+Let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now an independent start-up. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes, it uses modern libvips library with specifically crafted processing pipeline to optimize for maximum throughput and minimal memory consumption. It is pretty popular already, used by many companies, big and small, established and new, and we recently learned that Bluesky social app also uses imgproxy. And, most important, as it was initially made in a Ruby-centric company for a Ruby on Rails project, it has exceptional Ruby client library from the day one. So there is a gem! Even two of them!
+-->
+
+---
+layout: cover
+---
+
+# But why gem?
+
+What value it brings both to both product creators and users?
+
+<!--
+Now let's step back a bit and talk about what benefits making a Ruby gem will give to you as a product creator and to your users. And of course we will use imgproxy ruby gem as an example.
 -->
 
 ---
@@ -849,7 +866,7 @@ A new happy customer of your product! And that's great.
 
 <div class="col-span-3">
 
-Our awesome blog: [evilmartians.com/chronicles](https://evilmartians.com/chronicles/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)!
+Our awesome blog: <span v-mark.orange class="font-bold">[evilmartians.com/chronicles](https://evilmartians.com/chronicles/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)</span>!
 
 <p class="text-sm">See these slides at <a href="https://envek.github.io/rubyworld-keep-it-ruby/">envek.github.io/rubyworld-keep-it-ruby</a></p>
 
@@ -865,5 +882,6 @@ Our awesome blog: [evilmartians.com/chronicles](https://evilmartians.com/chronic
 <!--
 Keep your non-Ruby products to be Ruby-friendly, and we will be happy to help you with that!
 
+[click]
 Please check out Evil Martians blog, we have a lot of interesting blog posts about Ruby, Rails, frontend, design, open-source and other things.
 -->
