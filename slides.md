@@ -572,7 +572,7 @@ image: /images/imgproxy-website.png
 </style>
 
 <!--
-Let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now an independent start-up. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes, it uses modern libvips library with specifically crafted processing pipeline to optimize for maximum throughput and minimal memory consumption. It is pretty popular already, used by many companies, big and small, established and new, and we recently learned that Bluesky social app also uses imgproxy. And, most important, as it was initially made in a Ruby-centric company for a Ruby on Rails project, it has exceptional Ruby client library from the day one. So there is a gem! Even two of them!
+Let me introduce to you imgproxy. Imgproxy started its life at Evil Martians, but it is now an independent start-up. It allows you to process your images on-the-fly, without needing to do the dance of creating multiple versions of each uploaded image for different screen sizes, it uses modern libvips library with specifically crafted processing pipeline to optimize for maximum throughput and minimal memory consumption. It is pretty popular already, used by many companies, big and small, established and new, and we recently learned that Bluesky social app also uses imgproxy. Maybe in the future it could be integrated with Mastodon too? And, most important, as it was initially made in a Ruby-centric company for a Ruby on Rails project, it has exceptional Ruby client library from the day one. So there is a gem! Even two of them!
 -->
 
 ---
@@ -861,8 +861,8 @@ A new happy customer of your product! And that's great.
 
 - <logos-github-icon class="dark:invert" /> [@evilmartians](https://github.com/evilmartians?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 - <logos-twitter /> [@evilmartians](https://twitter.com/evilmartians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
+- <logos-mastodon-icon /> [@evilmartians<span class="text-sm tracking-tight">@mastodon.social</span>](https://mastodon.social/@evilmartians?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 - <logos-bluesky /> [@evilmartians.com](https://bsky.app/profile/evilmartians.com?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
-- <logos-linkedin-icon /> [@evil-martians](https://www.linkedin.com/company/evil-martians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 </div>
 
 <div>
