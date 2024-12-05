@@ -581,10 +581,10 @@ layout: cover
 
 # But why gem?
 
-What value it brings both to both product creators and users?
+What value it brings to both product owners and users?
 
 <!--
-Now let's step back a bit and talk about what benefits making a Ruby gem will give to you as a product creator and to your users. And of course we will use imgproxy ruby gem as an example.
+Now let's step back a bit and talk about what benefits making a Ruby gem will give to both you as a product creator and to your users. And of course we will use imgproxy ruby gem as an example.
 -->
 
 ---
@@ -627,7 +627,7 @@ See https://docs.imgproxy.net/generating_the_url
 <!--
 From the technical point of view, let's take a look at the main part of interaction with a image processing service: generating an URL to an image.
 
-This is an incredibly simple process:
+This is a simple process:
 [click] First of all, we take address of the original image, URL-encode it, and place at the end of the result URL.
 [click] Then we add processing options: what size it should be, how it should be cropped, what filters to apply, et cetera
 [click] Finally, we calculate a digital signature of both the options and the original URL, so no one can use our image processing for their needs for free.
@@ -642,7 +642,7 @@ transition: slide-left
 
 It is easy to implement yourself (for one specific use case)
 
-```ruby {all}{class:'!children:text-xs'}
+```ruby {7-18|8-9|11|12-15|17|all}{class:'!children:text-xs'}
 require 'base64'
 require 'openssl'
 
@@ -666,9 +666,11 @@ url = generate_url("http://example.com/image.jpg", 300, 400)
 ```
 
 <!--
-Crafting this URL isn't hard. It is pretty simple. So simple, in fact, it can fit one slide.
+Crafting this URL isn't hard. It is pretty simple. So simple, in fact, code that implementing it can fit one slide.
 
-And for you, as author of the product, there will be a temptation to skip the whole packaging step and just provide this code as an example in your README: dear user, copy and paste this into your project and call it a day.
+[click]Take and encode the original URL, [click] add processing options, [click] calculate a digital signature, [click] done!
+
+[click]And for you, as author of the product, there will be a temptation to skip the whole packaging step and just provide this code as an example in your README: dear user, copy and paste this into your project and call it a day.
 -->
 
 ---
@@ -778,7 +780,7 @@ Doing so resulted in the **removal of hundreds of lines of code** while also **e
 </style>
 
 <!--
-And users will appreciate all this: speed, simplicity, convenience of the client API. It won't go unnoticed. And if other services are ordinary ones, yours in comparison will be so good, people will want to scream of joy.
+And users will appreciate all this: speed, simplicity, convenience of the client API. It won't go unnoticed. And if other services are ordinary ones, yours in comparison will be so good, people will want to scream of joy, like John Nunemaker did who wrote a whole blog post about his experience with imgproxy.
 -->
 
 ---
@@ -813,9 +815,7 @@ It wouldn't be possible without a ready to use Ruby gem!
 </style>
 
 <!--
-So the answer to the question is… [click] convenience and [click] speed. If it is so easy to integrate the product into existing apps, it means that you almost certainly will get new customers.
-
-We'd like to reiterate that Ruby can be integrated with anything!
+So the answer to the question about why keeping your product Ruby-friendly is… [click] convenience and [click] speed. If it is so easy to integrate the product into existing apps, it means that you almost certainly will get new customers.
 -->
 
 ---
@@ -830,7 +830,9 @@ Keeping your product Ruby-friendly
 more customers, happier customers
 
 <!--
-A new happy customer of your product! And that's great.
+A new happy customers of your product! And that's great.
+
+We'd like to reiterate that expressiveness of Ruby allows nice, natural integration of anything to a Ruby application!
 -->
 
 ---
@@ -861,7 +863,7 @@ A new happy customer of your product! And that's great.
 
 - <logos-github-icon class="dark:invert" /> [@evilmartians](https://github.com/evilmartians?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 - <logos-twitter /> [@evilmartians](https://twitter.com/evilmartians/?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
-- <logos-mastodon-icon /> [@evilmartians<span class="text-sm tracking-tight">@mastodon.social</span>](https://mastodon.social/@evilmartians?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
+- <logos-mastodon-icon /> <span v-mark.orange="{ at: 2 }">[@evilmartians<span class="text-sm tracking-tight">@mastodon.social</span>](https://mastodon.social/@evilmartians?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)</span>
 - <logos-bluesky /> [@evilmartians.com](https://bsky.app/profile/evilmartians.com?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)
 </div>
 
@@ -888,5 +890,10 @@ Our awesome blog: <span v-mark.orange class="font-bold">[evilmartians.com/chroni
 Keep your non-Ruby products to be Ruby-friendly, and we will be happy to help you with that!
 
 [click]
-Please check out Evil Martians blog, we have a lot of interesting blog posts about Ruby, Rails, frontend, design, open-source and other things.
+Please check out Evil Martians blog, we have a lot of interesting blog posts about Ruby, Rails, frontend, design, open-source and other things. Many of them have been translated into Japanese.
+
+[click]
+Also check out our social accounts (including Mastodon!), to know first about new blog posts.
+
+And thank you very much for your attention! ご清聴ありがとうございました！
 -->
