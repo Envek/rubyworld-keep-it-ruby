@@ -257,7 +257,7 @@ class: text-3xl
 But sometimes it is just not right tool for the job
 
 <!--
-But at the same time many of our open source products are written in Go. Performance, memory usage, and concurrency are things that weren't Ruby strengths for the long time. Sometimes it is better to make a trade-off.
+But at the same time many of our open source products are written in Go. Performance, memory usage, and concurrency are things that weren't Ruby strengths for the long time. And while Ruby is getting more performant with every release, sometimes it might still worth it to make that trade-off.
 -->
 
 ---
