@@ -848,8 +848,8 @@ We'd like to reiterate that expressiveness of Ruby allows nice, natural integrat
 
 - <logos-github-icon class="dark:invert" /> [@imgproxy](https://github.com/imgproxy/)
 - <logos-twitter /> [@imgproxy_net](https://twitter.com/imgproxy_net)
+- <logos-mastodon-icon /> <span v-mark.orange="{ at: 2 }">[@imgproxy<span class="text-sm tracking-tight">@mastodon.social</span>](https://mastodon.social/@imgproxy?utm_source=rubyworld&utm_medium=slides&utm_campaign=keep-it-ruby)</span>
 - <logos-bluesky /> [@imgproxy.net](https://bsky.app/profile/imgproxy.net)
-- <logos-linkedin-icon /> [@imgproxy](https://www.linkedin.com/company/imgproxy)
 
 <div>
 <qr-code url="https://imgproxy.net/" caption="imgproxy.net" class="w-32 my-2" />
