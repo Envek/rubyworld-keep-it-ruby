@@ -758,7 +758,12 @@ Doing so resulted in the **removal of hundreds of lines of code** while also **e
 
 </blockquote>
 
-— John Nunemaker: https://www.johnnunemaker.com/imgproxy/
+<div class="mr-36">
+
+— **John Nunemaker**: Ruby programmer and founder, author of flipper and httparty gems{.text-sm.tracking-tighter}
+
+  https://www.johnnunemaker.com/imgproxy/
+</div>
 
 <qr-code url="https://www.johnnunemaker.com/imgproxy/" caption="Imgproxy is Amazing" class="w-36 absolute bottom-48px right-48px" />
 
