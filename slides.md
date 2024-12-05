@@ -466,7 +466,7 @@ class: annotated-list
 
  - Complexity: **replace your code with a microservice**
 
-   Throw away all these backround jobs, and replace them with a simple URL construction.
+   Throw away all these background jobs, and replace them with a simple URL construction.
 
  - Latency: **dedicated service that do only images processing**
 
